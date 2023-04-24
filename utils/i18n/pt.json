@@ -1,0 +1,97 @@
+{
+  "me": {
+    "text": "Olá! Meu nome é Luiz Felipe mas pode me chamar de Amadeu, e eu nasci em 18 de dezembro de 2005 em Paraná, Brasil. Eu me dedico a tornar a web mais bonita e rápida, e atualmente trabalho na Aupi."
+  },
+  "education": {
+    "title": "Educação",
+    "milestones": [
+      {
+        "title": "Sesi Senai",
+        "date": "Fevereiro de 2021 - Dezembro de 2022",
+        "text": "Ensino médio completo e educação técnica em desenvolvimento de sistemas."
+      },
+      {
+        "title": "Fatecie Premium",
+        "date": "Fevereiro de 2020 - Dezembro de 2020",
+        "text": "Ensino médio incompleto."
+      },
+      {
+        "title": "Fatecie Max",
+        "date": "Fevereiro de 2018 - Dezembro de 2019",
+        "text": "Ensino fundamental completo e aprendizado sobre robótica e Arduino."
+      }
+    ]
+  },
+  "experience": {
+    "title": "Experiência",
+    "jobs": [
+      {
+        "name": "Aupi",
+        "role": "Desenvolvedor Frontend",
+        "date": "desde novembro de 2022",
+        "tasks": [
+          "Desenvolvimento contínuo do frontend da Aupi usando React",
+          "Desenvolvimento e implementação de uma ferramenta de administração para controle de pragas na Hassy",
+          "Desenvolvimento de um site de utilitários para o dia a dia usando Next.js"
+        ]
+      }
+    ]
+  },
+  "skills": {
+    "title": "Habilidades",
+    "sections": [
+      {
+        "title": "Linguagens de programação",
+        "skills": ["JavaScript", "TypeScript", "Golang", "C++", "Rust"]
+      },
+      {
+        "title": "Bibliotecas e Frameworks",
+        "skills": [
+          "React",
+          "Next.js",
+          "Vue",
+          "Nuxt.js",
+          "Three.js",
+          "Node",
+          "Fastify",
+          "Nest.js",
+          "Deno",
+          "Oak",
+          "Fresh",
+          "Astro",
+          "Framer Motion",
+          "Tailwind CSS"
+        ]
+      },
+      {
+        "title": "Conhecimentos adicionais",
+        "skills": [
+          "Linux",
+          "Docker",
+          "Kubernetes",
+          "Directus",
+          "Strapi",
+          "Traefik",
+          "Git",
+          "HTML",
+          "SCSS",
+          "SQL",
+          "NoSQL",
+          "Francês",
+          "Inglês"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projetos"
+  },
+  "contact": {
+    "title": "Contato",
+    "mail": "E-Mail",
+    "message": "Mensagem",
+    "send": "Enviar",
+    "sent": "Obrigado pela mensagem!",
+    "failed": "Algo deu errado :("
+  }
+}

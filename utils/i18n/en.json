@@ -1,0 +1,97 @@
+{
+  "me": {
+    "text": "Hi! My name is Luiz Felipe but you can call me Amadeu, and I was born on December 18, 2005 in Paraná, Brazil. I'm dedicated to making the web more beautiful and faster, and I currently work at Aupi."
+  },
+  "education": {
+    "title": "Education",
+    "milestones": [
+      {
+        "title": "Sesi Senai",
+        "date": "February 2021 - December 2022",
+        "text": "Completed high school and technical education in system development."
+      },
+      {
+        "title": "Fatecie Premium",
+        "date": "February 2020 - December 2020",
+        "text": "Incompleted high school."
+      },
+      {
+        "title": "Fatecie Max",
+        "date": "February 2018 - December 2019",
+        "text": "Completed elementary school and learned about robotics and Arduino."
+      }
+    ]
+  },
+  "experience": {
+    "title": "Experience",
+    "jobs": [
+      {
+        "name": "Aupi",
+        "role": "Frontend Developer",
+        "date": "since November 2022",
+        "tasks": [
+          "Continued development of Aupi's frontend using React",
+          "Developed and implemented an administration tool for pest control at Hassy",
+          "Developed a website for day-to-day utilities using Next.js"
+        ]
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills",
+    "sections": [
+      {
+        "title": "Programming languages",
+        "skills": ["JavaScript", "TypeScript", "Golang", "C++", "Rust"]
+      },
+      {
+        "title": "Libraries and Frameworks",
+        "skills": [
+          "React",
+          "Next.js",
+          "Vue",
+          "Nuxt.js",
+          "Three.js",
+          "Node",
+          "Fastify",
+          "Nest.js",
+          "Deno",
+          "Oak",
+          "Fresh",
+          "Astro",
+          "Framer Motion",
+          "Tailwind CSS"
+        ]
+      },
+      {
+        "title": "Further knowledge",
+        "skills": [
+          "Linux",
+          "Docker",
+          "Kubernetes",
+          "Directus",
+          "Strapi",
+          "Traefik",
+          "Git",
+          "HTML",
+          "SCSS",
+          "SQL",
+          "NoSQL",
+          "French",
+          "English"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projects"
+  },
+  "contact": {
+    "title": "Contact",
+    "mail": "E-Mail",
+    "message": "Message",
+    "send": "Send",
+    "sent": "Thanks for the message!",
+    "failed": "Something went wrong :("
+  }
+}
