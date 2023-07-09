@@ -74,7 +74,7 @@ const Projects = (data: { translation: Translation["projects"] }) => (
         to="#b5c6e0"
       />
       <Project
-        link="https://www.sfn-neumann.de"
+        link="https://amadeu.deno.dev/"
         domain="Portfolio Amadeu"
         technologies="Deno.js, Fresh, TailwindCSS"
         from="#ef709b"

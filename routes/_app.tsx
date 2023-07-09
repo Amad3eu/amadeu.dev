@@ -8,7 +8,7 @@ export default function App({ Component }: AppProps) {
         <title>Luiz Amadeu - Front-End Web Developer</title>
         <meta
           name="description"
-          content="Front-End Web Developer and Javascript enthusiast"
+          content="Front-End Developer and Golang enthusiast"
         />
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
