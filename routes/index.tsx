@@ -4,7 +4,7 @@ import Education from "../components/education.tsx";
 import Experience from "../components/experience.tsx";
 import Skills from "../components/skills.tsx";
 import Projects from "../components/projects.tsx";
-import Contact from "../islands/contact.tsx";
+// import Contact from "../islands/contact.tsx";
 import Footer from "../components/footer.tsx";
 
 import { State } from "../utils/types.ts";
@@ -28,7 +28,7 @@ const Index = ({ data }: PageProps<State>) => {
       <Experience translation={data.translation.experience} />
       <Skills translation={data.translation.skills} />
       <Projects translation={data.translation.projects} />
-      <Contact translation={data.translation.contact} />
+      {/* <Contact translation={data.translation.contact} /> */}
       <Footer translation={data.translation.footer} />
     </div>
   );
