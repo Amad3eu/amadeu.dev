@@ -19,11 +19,13 @@ await start(manifest, {
         "@font-face": [
           {
             fontFamily: "Plex",
+            fontDisplay: "swap",
             src: 'url(/fonts/Plex-Regular.woff2) format("woff2")',
           },
           {
             fontFamily: "Plex",
             fontWeight: "bold",
+            fontDisplay: "swap",
             src: 'url(/fonts/Plex-Bold.woff2) format("woff2")',
           },
         ],
@@ -32,9 +34,8 @@ await start(manifest, {
           body: apply`text-sm text-white font-plex leading-none tracking-wide`,
           h1: apply`text-xl leading-none font-bold sm:text-lg`,
           h2: apply`text-lg font-bold text-gray-light sm:text-md`,
-          h3:
-            apply`text-right uppercase text-md font-bold text-gray-light lg:mt-6 lg:mb-2 md:mt-4 lg:text-left`,
-          h4: apply`text-white font-bold text-md  mb-1.5 lg:mb-1 md:mb-0.8`,
+          h3: apply`text-right uppercase text-md font-bold text-gray-light lg:mt-6 lg:mb-2 md:mt-4 lg:text-left`,
+          h4: apply`text-white font-bold text-md  mb-1 lg:mb-1 md:mb-0.8`,
           h5: apply`text-gray-light leading-snug`,
           ul: apply`list-disc list-inside`,
           li: apply`text-gray-light leading-normal`,
@@ -47,4 +48,3 @@ await start(manifest, {
     }),
   ],
 });
-
