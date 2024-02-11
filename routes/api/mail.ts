@@ -15,8 +15,8 @@ export const handler: Handlers = {
         },
       },
     });
-    const payload: { mail: string; message: string } | undefined = await request
-      .json();
+    const payload: { mail: string; message: string } | undefined =
+      await request.json();
     if (payload) {
       try {
         await client.send({
