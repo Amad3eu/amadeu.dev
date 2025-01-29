@@ -1,39 +1,19 @@
 {
   "me": {
-    "text": "Olá! Meu nome é Luiz Felipe mas pode me chamar de Amadeu, e eu nasci em 18 de dezembro de 2005 em Paraná, Brasil. Eu me dedico a tornar a web mais bonita e rápida, e atualmente trabalho na Aupi."
+    "text": "Olá! Meu nome é Luiz Felipe Warmling Amadeu, e eu nasci em 18 de dezembro de 2005 em Paraná, Brasil. Sou apaixonado por tecnologia e programo desde os 8 anos. Me dedico a criar soluções web eficientes e escaláveis como desenvolvedor full-stack."
   },
   "education": {
     "title": "Educação",
     "milestones": [
       {
-        "title": "Sesi Senai",
-        "date": "Fevereiro de 2021 - Dezembro de 2022",
-        "text": "Ensino médio completo e educação técnica em desenvolvimento de sistemas."
+        "title": "Bacharelado em Engenharia de Software",
+        "institution": "Universidade da Região de Joinville",
+        "date": "Março de 2024 - Novembro de 2028"
       },
       {
-        "title": "Fatecie Premium",
-        "date": "Fevereiro de 2020 - Dezembro de 2020",
-        "text": "Ensino médio incompleto."
-      },
-      {
-        "title": "Fatecie Max",
-        "date": "Fevereiro de 2018 - Dezembro de 2019",
-        "text": "Ensino fundamental completo e aprendizado sobre robótica e Arduino."
-      }
-    ]
-  },
-  "experience": {
-    "title": "Experiência",
-    "jobs": [
-      {
-        "name": "Aupi",
-        "role": "Desenvolvedor Frontend",
-        "date": "desde novembro de 2022",
-        "tasks": [
-          "Desenvolvimento contínuo do frontend da Aupi usando React",
-          "Desenvolvimento e implementação de uma ferramenta de administração para controle de pragas na Hassy",
-          "Desenvolvimento de um site de utilitários para o dia a dia usando Next.js"
-        ]
+        "title": "Curso Técnico Integrado em Tecnologia da Informação",
+        "institution": "SENAI/SC",
+        "date": "Março de 2020 - Dezembro de 2022"
       }
     ]
   },
@@ -41,50 +21,87 @@
     "title": "Habilidades",
     "sections": [
       {
-        "title": "Linguagens de programação",
-        "skills": ["JavaScript", "TypeScript", "Golang", "C++", "Rust"]
+        "title": "Linguagens de Programação",
+        "skills": ["Python", "Go", "JavaScript", "TypeScript"]
       },
       {
-        "title": "Bibliotecas e Frameworks",
-        "skills": [
-          "React",
-          "Next.js",
-          "Vue",
-          "Nuxt.js",
-          "Three.js",
-          "Node",
-          "Fastify",
-          "Nest.js",
-          "Deno",
-          "Oak",
-          "Fresh",
-          "Astro",
-          "Framer Motion",
-          "Tailwind CSS"
+        "title": "Frameworks",
+        "skills": ["Django", "React", "Next.js"]
+      },
+      {
+        "title": "Ferramentas",
+        "skills": ["Git", "GitHub", "APIs RESTful", "DDD"]
+      },
+      {
+        "title": "Tecnologias",
+        "skills": ["Open-source", "Plataformas Educacionais"]
+      }
+    ]
+  },
+  "languages": {
+    "title": "Idiomas",
+    "list": [
+      {"language": "Inglês", "level": "Intermediário"},
+      {"language": "Espanhol", "level": "Básico"}
+    ]
+  },
+  "certifications": {
+    "title": "Licenças e Certificações",
+    "list": [
+      {"year": "2022", "name": "Bootcamp de Desenvolvimento Web", "platform": "Udemy"},
+      {"year": "2022", "name": "Bootcamp de JavaScript Moderno", "platform": "Udemy"},
+      {"year": "2022", "name": "Bootcamp de Git e GitHub", "platform": "Udemy"},
+      {"year": "2022", "name": "Curso de DDD", "platform": "LinkedIn Learning"},
+      {"year": "2022", "name": "Curso de Orientação a Objetos com TypeScript", "platform": "LinkedIn Learning"},
+      {"year": "2021", "name": "Curso de API Restful com Node.js, TypeScript e TypeORM", "platform": "Udemy"},
+      {"year": "2021", "name": "Curso de React e Next.js", "platform": "Udemy"},
+      {"year": "2021", "name": "JavaScript e TypeScript do Básico ao Avançado", "platform": "Udemy"},
+      {"year": "2019", "name": "C++ com Arduino", "platform": "Curso Privado"},
+      {"year": "2018", "name": "Segundo Lugar - Olimpíada de Matemática de Paranavaí", "platform": "IMPA"}
+    ]
+  },
+  "experience": {
+    "title": "Experiência",
+    "jobs": [
+      {
+        "name": "Freelancer",
+        "role": "Desenvolvedor Full Stack",
+        "date": "Novembro de 2024 - Presente",
+        "tasks": [
+          "Desenvolvendo soluções frontend e backend para diversos clientes",
+          "Construindo aplicações web complexas e integrações robustas de API",
+          "Entregando produtos escaláveis e eficientes garantindo a satisfação do cliente"
         ]
       },
       {
-        "title": "Conhecimentos adicionais",
-        "skills": [
-          "Linux",
-          "Docker",
-          "Kubernetes",
-          "Directus",
-          "Strapi",
-          "Traefik",
-          "Git",
-          "HTML",
-          "SCSS",
-          "SQL",
-          "NoSQL",
-          "Francês",
-          "Inglês"
+        "name": "Aupi",
+        "role": "Desenvolvedor Full Stack",
+        "date": "Novembro de 2022 - Novembro de 2024",
+        "tasks": [
+          "Desenvolvi a interface frontend para um sistema baseado em Django",
+          "Criei o Aupi Tools, uma plataforma frontend que consome APIs externas para utilitários web",
+          "Implementei funcionalidades no backend e otimizei soluções existentes",
+          "Melhorei a experiência do usuário e resolvi problemas de integração e desempenho"
+        ]
+      },
+      {
+        "name": "Freelancer",
+        "role": "Desenvolvedor Full Stack",
+        "date": "Fevereiro de 2022 - Outubro de 2022",
+        "tasks": [
+          "Desenvolvi soluções para aplicações frontend, fullstack e e-commerce",
+          "Utilizei Next.js no frontend e Django no backend",
+          "Criei interfaces interativas e integrei APIs externas"
         ]
       }
     ]
   },
   "projects": {
-    "title": "Projetos"
+    "title": "Projetos",
+    "list": [
+      {"name": "Aupi Tools", "url": "https://aupitools.com"},
+      {"name": "GitHub Portfolio", "url": "https://github.com/Amad3eu"}
+    ]
   },
   "contact": {
     "title": "Contato",
