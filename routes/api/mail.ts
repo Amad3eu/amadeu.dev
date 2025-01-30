@@ -27,7 +27,7 @@ export const handler: Handlers = {
         });
         await client.close();
         return new Response("", { status: Status.OK });
-      } catch (e) {
+      } catch (_e) {
         return new Response("", { status: Status.BadRequest });
       }
     }

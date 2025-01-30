@@ -21,7 +21,7 @@ const Contact = (data: { translation: Translation["contact"] }) => {
         });
         if (response.status !== 200) throw Error;
         setStatus("sent");
-      } catch (e) {
+      } catch (_e) {
         setStatus("failed");
       }
     },
