@@ -1,39 +1,19 @@
 {
   "me": {
-    "text": "Hi! My name is Luiz Felipe but you can call me Amadeu, and I was born on December 18, 2005 in Paraná, Brazil. I'm dedicated to making the web more beautiful and faster, and I currently work at Aupi."
+    "text": "Hi! My name is Luiz Felipe Warmling Amadeu, and I was born on December 18, 2005, in Paraná, Brazil. I am passionate about technology and have been programming since I was 8 years old. I am dedicated to creating efficient and scalable web solutions as a full-stack developer."
   },
   "education": {
     "title": "Education",
     "milestones": [
       {
-        "title": "Sesi Senai",
-        "date": "February 2021 - December 2022",
-        "text": "Completed high school and technical education in system development."
+        "title": "Bachelor's in Software Engineering",
+        "institution": "Universidade da Região de Joinville",
+        "date": "March 2024 - November 2028"
       },
       {
-        "title": "Fatecie Premium",
-        "date": "February 2020 - December 2020",
-        "text": "Incompleted high school."
-      },
-      {
-        "title": "Fatecie Max",
-        "date": "February 2018 - December 2019",
-        "text": "Completed elementary school and learned about robotics and Arduino."
-      }
-    ]
-  },
-  "experience": {
-    "title": "Experience",
-    "jobs": [
-      {
-        "name": "Aupi",
-        "role": "Frontend Developer",
-        "date": "since November 2022",
-        "tasks": [
-          "Continued development of Aupi's frontend using React",
-          "Developed and implemented an administration tool for pest control at Hassy",
-          "Developed a website for day-to-day utilities using Next.js"
-        ]
+        "title": "Integrated Technical Course in Information Technology",
+        "institution": "SENAI/SC",
+        "date": "March 2020 - December 2022"
       }
     ]
   },
@@ -41,50 +21,87 @@
     "title": "Skills",
     "sections": [
       {
-        "title": "Programming languages",
-        "skills": ["JavaScript", "TypeScript", "Golang", "C++", "Rust"]
+        "title": "Programming Languages",
+        "skills": ["Python", "Go", "JavaScript", "TypeScript"]
       },
       {
-        "title": "Libraries and Frameworks",
-        "skills": [
-          "React",
-          "Next.js",
-          "Vue",
-          "Nuxt.js",
-          "Three.js",
-          "Node",
-          "Fastify",
-          "Nest.js",
-          "Deno",
-          "Oak",
-          "Fresh",
-          "Astro",
-          "Framer Motion",
-          "Tailwind CSS"
+        "title": "Frameworks",
+        "skills": ["Django", "React", "Next.js"]
+      },
+      {
+        "title": "Tools",
+        "skills": ["Git", "GitHub", "APIs RESTful", "DDD"]
+      },
+      {
+        "title": "Technologies",
+        "skills": ["Open-source", "Educational Platforms"]
+      }
+    ]
+  },
+  "languages": {
+    "title": "Languages",
+    "list": [
+      {"language": "English", "level": "Intermediate"},
+      {"language": "Spanish", "level": "Basic"}
+    ]
+  },
+  "certifications": {
+    "title": "Licenses and Certifications",
+    "list": [
+      {"year": "2022", "name": "Web Development Bootcamp", "platform": "Udemy"},
+      {"year": "2022", "name": "Modern JavaScript Bootcamp", "platform": "Udemy"},
+      {"year": "2022", "name": "Git and GitHub Bootcamp", "platform": "Udemy"},
+      {"year": "2022", "name": "DDD Course", "platform": "LinkedIn Learning"},
+      {"year": "2022", "name": "TypeScript Oriented Object Course", "platform": "LinkedIn Learning"},
+      {"year": "2021", "name": "API Restful Course with Node.js, TypeScript, and TypeORM", "platform": "Udemy"},
+      {"year": "2021", "name": "React and Next.js Course", "platform": "Udemy"},
+      {"year": "2021", "name": "JavaScript and TypeScript from Basic to Advanced", "platform": "Udemy"},
+      {"year": "2019", "name": "C++ with Arduino", "platform": "Private Course"},
+      {"year": "2018", "name": "Second Place - Mathematics Olympiad of Paranavaí", "platform": "IMPA"}
+    ]
+  },
+  "experience": {
+    "title": "Experience",
+    "jobs": [
+      {
+        "name": "Freelancer",
+        "role": "Full Stack Developer",
+        "date": "November 2024 - Present",
+        "tasks": [
+          "Developing frontend and backend solutions for various clients",
+          "Building complex web applications and robust API integrations",
+          "Delivering scalable and efficient products ensuring client satisfaction"
         ]
       },
       {
-        "title": "Further knowledge",
-        "skills": [
-          "Linux",
-          "Docker",
-          "Kubernetes",
-          "Directus",
-          "Strapi",
-          "Traefik",
-          "Git",
-          "HTML",
-          "SCSS",
-          "SQL",
-          "NoSQL",
-          "French",
-          "English"
+        "name": "Aupi",
+        "role": "Full Stack Developer",
+        "date": "November 2022 - November 2024",
+        "tasks": [
+          "Developed the frontend interface for a Django-based system",
+          "Created Aupi Tools, a frontend platform consuming external APIs for web utilities",
+          "Implemented backend functionalities and optimized existing solutions",
+          "Enhanced user experience and resolved integration and performance issues"
+        ]
+      },
+      {
+        "name": "Freelancer",
+        "role": "Full Stack Developer",
+        "date": "February 2022 - October 2022",
+        "tasks": [
+          "Developed solutions for frontend, fullstack, and e-commerce applications",
+          "Used Next.js on the frontend and Django on the backend",
+          "Created interactive interfaces and integrated external APIs"
         ]
       }
     ]
   },
   "projects": {
-    "title": "Projects"
+    "title": "Projects",
+    "list": [
+      {"name": "Aupi Tools", "url": "https://aupitools.com"},
+      {"name": "GitHub Portfolio", "url": "https://github.com/Amad3eu"}
+    ]
   },
   "contact": {
     "title": "Contact",

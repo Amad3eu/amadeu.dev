@@ -11,7 +11,7 @@ import { State } from "../utils/types.ts";
 
 import { Handlers, PageProps } from "$fresh/server.ts";
 
-export const handler: Handlers<any, State> = {
+export const handler: Handlers<unknown, State> = {
   GET(_req, ctx) {
     return ctx.render({
       translation: ctx.state.translation,

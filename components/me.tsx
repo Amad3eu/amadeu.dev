@@ -3,8 +3,8 @@ import { Translation } from "../utils/types.ts";
 const Me = (data: { translation: Translation["me"] }) => (
   <div class="flex md:flex-col justify-between gap-10 md:gap-y-3 items-center md:items-start">
     <div class="md:order-2">
-      <h1>Luiz Amadeu</h1>
-      <h2 class="my-1">Front End Web Developer</h2>
+      <h1>Luiz Felipe Warmling Amadeu</h1>
+      <h2 class="my-1">Developer</h2>
       <p class="whitespace-pre-wrap">{data.translation.text}</p>
     </div>
     <img

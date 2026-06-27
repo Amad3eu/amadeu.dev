@@ -1,6 +1,6 @@
 import { Translation } from "../utils/types.ts";
 
-const Footer = (data: { translation: Translation["footer"] }) => (
+const Footer = (_data: { translation: Translation["footer"] }) => (
   <div class="col-span-2 lg:col-span-1 flex gap-1 items-start mt-10 justify-between">
     <div class="flex flex-col items-center gap-2 flex-1 justify-center">
       <a
