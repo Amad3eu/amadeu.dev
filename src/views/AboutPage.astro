@@ -1,0 +1,182 @@
+---
+import { Image } from "astro:assets";
+import me from "../assets/me.jpg";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Icon from "../components/Icon.astro";
+import ContactCta from "../components/ContactCta.astro";
+import { site } from "../config/site";
+import { areas, bio, certifications, education, experience, languagesSpoken, skills } from "../data/profile";
+import { l, languages, otherLang, path, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const month = (ym: string) => {
+  const parts = new Intl.DateTimeFormat(languages[lang].dateLocale, { month: "short", year: "numeric", timeZone: "UTC" })
+    .formatToParts(new Date(`${ym}-01T00:00:00Z`));
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  return `${get("month").replace(".", "")} ${get("year")}`;
+};
+const range = (start: string, end?: string) =>
+  `${month(start)} — ${end ? month(end) : lang === "pt" ? "atual" : "present"}`;
+---
+
+<BaseLayout
+  lang={lang}
+  title={t("about.title")}
+  description={t("about.description")}
+  active="about"
+  alternate={path("about", otherLang(lang))}
+>
+  <div class="container-page pt-14 sm:pt-20">
+    <!-- Intro -->
+    <section class="grid gap-12 lg:grid-cols-[1fr_18rem] lg:gap-20">
+      <div class="max-w-2xl">
+        <p class="eyebrow">{t("about.eyebrow")}</p>
+        <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{t("about.heading")}</h1>
+        <div class="mt-8 space-y-5 text-lg leading-relaxed text-pretty text-muted">
+          {l(lang, bio).map((p) => <p>{p}</p>)}
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={`/cv-${lang}.pdf`} class="btn-primary" download>
+            <Icon name="download" />
+            {t("about.cv")}
+          </a>
+          <a href={site.socials.linkedin} class="btn-ghost" target="_blank" rel="noopener">
+            <Icon name="linkedin" /> LinkedIn
+          </a>
+          <a href={site.socials.github} class="btn-ghost" target="_blank" rel="noopener">
+            <Icon name="github" /> GitHub
+          </a>
+        </div>
+      </div>
+      <div class="relative mx-auto h-fit w-56 self-start lg:mx-0 lg:mt-10 lg:w-full">
+        <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl border border-accent/40" aria-hidden="true"></div>
+        <Image
+          src={me}
+          alt={site.fullName}
+          width={576}
+          height={576}
+          class="relative aspect-square w-full rounded-3xl border border-border object-cover"
+        />
+      </div>
+    </section>
+
+    <!-- Experiência -->
+    <section class="mt-24">
+      <SectionHeading title={t("about.experience")} />
+      <ol class="space-y-12">
+        {
+          experience.map((job) => (
+            <li class="grid gap-3 sm:grid-cols-[11rem_1fr] sm:gap-8">
+              <p class="font-mono text-xs whitespace-nowrap text-subtle sm:pt-1.5">{range(job.start, job.end)}</p>
+              <div>
+                <h3 class="text-lg font-semibold tracking-tight">
+                  {l(lang, job.role)} <span class="text-subtle">·</span> <span class="text-accent">{job.company}</span>
+                </h3>
+                <ul class="mt-3 space-y-2 text-muted">
+                  {l(lang, job.highlights).map((item) => (
+                    <li class="relative pl-5 leading-relaxed before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2.5 before:bg-border-strong">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <ul class="mt-4 flex flex-wrap gap-1.5">
+                  {job.stack.map((tech) => (
+                    <li class="chip">{tech}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <!-- Formação -->
+    <section class="mt-24">
+      <SectionHeading title={t("about.education")} />
+      <ol class="space-y-8">
+        {
+          education.map((item) => (
+            <li class="grid gap-2 sm:grid-cols-[11rem_1fr] sm:gap-8">
+              <p class="font-mono text-xs whitespace-nowrap text-subtle sm:pt-1">{range(item.start, item.end)}</p>
+              <div>
+                <h3 class="font-semibold tracking-tight">{l(lang, item.title)}</h3>
+                <p class="mt-1 text-muted">{item.institution}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <!-- Habilidades -->
+    <section class="mt-24">
+      <SectionHeading title={t("about.skills")} />
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          skills.map((group) => (
+            <div class="card p-6">
+              <p class="label">{l(lang, group.title)}</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5">
+                {group.items.map((item) => (
+                  <li class="chip">{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <h3 class="label mt-12 mb-4">{t("about.areas")}</h3>
+      <ul class="grid gap-x-8 gap-y-3 text-muted sm:grid-cols-2">
+        {
+          l(lang, areas).map((area) => (
+            <li class="flex items-start gap-3">
+              <Icon name="check" size={16} class="mt-1 shrink-0 text-accent" />
+              {area}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Idiomas e certificações -->
+    <section class="mt-24 grid gap-16 lg:grid-cols-[18rem_1fr]">
+      <div>
+        <SectionHeading title={t("about.languages")} />
+        <ul class="space-y-3">
+          {
+            languagesSpoken.map((item) => (
+              <li class="flex justify-between gap-4">
+                <span>{l(lang, item.name)}</span>
+                <span class="font-mono text-xs text-subtle">{l(lang, item.level)}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <SectionHeading title={t("about.certifications")} />
+        <ul class="divide-y divide-border">
+          {
+            certifications.map((c) => (
+              <li class="grid grid-cols-[3.5rem_1fr] gap-4 py-3 sm:grid-cols-[3.5rem_1fr_auto]">
+                <span class="font-mono text-xs text-subtle">{c.year}</span>
+                <span>{c.name}</span>
+                <span class="col-start-2 font-mono text-xs text-subtle sm:col-start-auto">{c.issuer}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <ContactCta lang={lang} />
+</BaseLayout>

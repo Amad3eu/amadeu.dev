@@ -1,0 +1,154 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import me from "../assets/me.jpg";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../config/site";
+import { getLocalPosts, getTranslation, readingTime, splitId, type Post } from "../lib/posts";
+import { formatDate, otherLang, path, postPath, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  post: Post;
+  lang: Lang;
+}
+
+const { post, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content, headings } = await render(post);
+const minutes = readingTime(post);
+const translation = await getTranslation(post);
+
+const posts = await getLocalPosts(lang);
+const index = posts.findIndex((p) => p.id === post.id);
+const newer = index > 0 ? posts[index - 1] : undefined;
+const older = index < posts.length - 1 ? posts[index + 1] : undefined;
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  inLanguage: lang === "pt" ? "pt-BR" : "en",
+  author: { "@type": "Person", name: site.fullName, url: Astro.site?.href },
+  keywords: post.data.tags.join(", "),
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={post.data.title}
+  description={post.data.description}
+  active="blog"
+  alternate={translation ?? path("blog", otherLang(lang))}
+  type="article"
+  publishedTime={post.data.date}
+  modifiedTime={post.data.updated}
+  jsonLd={jsonLd}
+>
+  <div class="container-page pt-12 sm:pt-16">
+    <div class="mx-auto grid max-w-5xl gap-12 xl:max-w-6xl xl:grid-cols-[minmax(0,1fr)_14rem]">
+      <article class="mx-auto w-full max-w-3xl">
+        <a href={path("blog", lang)} class="inline-flex items-center gap-2 font-mono text-xs text-subtle hover:text-fg">
+          <Icon name="arrow-left" size={14} />
+          {t("blog.back")}
+        </a>
+
+        <header class="mt-8 border-b border-border pb-8">
+          <p class="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-subtle">
+            <span class="text-accent">{post.data.category}</span>
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, lang, "long")}</time>
+            <span aria-hidden="true">·</span>
+            <span>{t("blog.readingTime", { n: minutes })}</span>
+          </p>
+          <h1 class="mt-4 text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-5xl">
+            {post.data.title}
+          </h1>
+          <p class="mt-4 text-lg leading-relaxed text-pretty text-muted">{post.data.description}</p>
+          {
+            post.data.updated && (
+              <p class="mt-4 font-mono text-xs text-subtle">
+                {t("blog.updated")} {formatDate(post.data.updated, lang, "long")}
+              </p>
+            )
+          }
+          {
+            translation && (
+              <a href={translation} hreflang={otherLang(lang)} class="link-arrow mt-4 text-sm">
+                {t("blog.translation")} <Icon name="arrow-right" size={14} />
+              </a>
+            )
+          }
+        </header>
+
+        <div class="prose-post prose prose-lg mt-10 max-w-none prose-headings:font-semibold prose-a:font-normal prose-img:rounded-xl">
+          <Content />
+        </div>
+
+        {
+          post.data.tags.length > 0 && (
+            <ul class="mt-12 flex flex-wrap gap-2">
+              {post.data.tags.map((tag) => (
+                <li class="chip">#{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+
+        <div class="card mt-12 flex items-center gap-4 p-5">
+          <Image src={me} alt="" width={96} height={96} class="size-12 rounded-full object-cover" />
+          <div class="text-sm">
+            <p class="font-medium">{site.fullName}</p>
+            <p class="text-muted">{t("footer.tagline")}</p>
+          </div>
+        </div>
+
+        {
+          (newer || older) && (
+            <nav class="mt-12 grid gap-4 sm:grid-cols-2" aria-label={lang === "pt" ? "Mais posts" : "More posts"}>
+              {older ? (
+                <a href={postPath(splitId(older.id).slug, lang)} class="card-link p-5">
+                  <p class="label">← {t("blog.prev")}</p>
+                  <p class="mt-2 font-medium text-balance">{older.data.title}</p>
+                </a>
+              ) : (
+                <span />
+              )}
+              {newer && (
+                <a href={postPath(splitId(newer.id).slug, lang)} class="card-link p-5 sm:text-right">
+                  <p class="label">{t("blog.next")} →</p>
+                  <p class="mt-2 font-medium text-balance">{newer.data.title}</p>
+                </a>
+              )}
+            </nav>
+          )
+        }
+      </article>
+
+      {
+        toc.length >= 3 && (
+          <aside class="hidden xl:block">
+            <nav class="sticky top-24" aria-label={t("blog.toc")}>
+              <p class="label mb-3">{t("blog.toc")}</p>
+              <ul class="space-y-2 border-l border-border text-sm">
+                {toc.map((h) => (
+                  <li>
+                    <a
+                      href={`#${h.slug}`}
+                      class:list={["-ml-px block border-l border-transparent text-muted hover:border-accent hover:text-fg", h.depth === 3 ? "pl-6" : "pl-3"]}
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

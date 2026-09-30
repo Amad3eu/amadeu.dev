@@ -1,0 +1,85 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../config/site";
+import { languages, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Códigos WMO do Open-Meteo agrupados em rótulos curtos.
+const weatherLabels = {
+  pt: { clear: "Céu limpo", partly: "Parcialmente nublado", cloudy: "Nublado", fog: "Neblina", drizzle: "Garoa", rain: "Chuva", snow: "Neve", storm: "Tempestade" },
+  en: { clear: "Clear sky", partly: "Partly cloudy", cloudy: "Cloudy", fog: "Fog", drizzle: "Drizzle", rain: "Rain", snow: "Snow", storm: "Thunderstorm" },
+}[lang];
+---
+
+<div
+  class="card flex h-full flex-col justify-between gap-6 p-6"
+  data-clock
+  data-locale={languages[lang].dateLocale}
+  data-tz={site.location.timeZone}
+  data-lat={site.location.latitude}
+  data-lon={site.location.longitude}
+  data-labels={JSON.stringify(weatherLabels)}
+>
+  <div class="space-y-1">
+    <p class="label flex items-center gap-2">
+      <Icon name="clock" size={14} />
+      {t("clock.label")}
+    </p>
+    <p class="font-mono text-4xl tracking-tight tabular-nums" data-time>--:--</p>
+    <p class="flex items-center gap-1.5 text-sm text-muted">
+      <Icon name="pin" size={14} />
+      {site.location.label}
+    </p>
+  </div>
+  <div class="border-t border-border pt-4" data-weather hidden>
+    <p class="label mb-1 flex items-center gap-2">
+      <Icon name="cloud" size={14} />
+      {t("clock.weather")}
+    </p>
+    <p class="text-sm">
+      <span class="text-2xl font-medium tabular-nums" data-temp></span>
+      <span class="ml-1 text-muted" data-condition></span>
+    </p>
+  </div>
+</div>
+
+<script>
+  const group = (code: number) => {
+    if (code === 0) return "clear";
+    if (code <= 2) return "partly";
+    if (code === 3) return "cloudy";
+    if (code <= 48) return "fog";
+    if (code <= 57) return "drizzle";
+    if (code <= 67 || (code >= 80 && code <= 82)) return "rain";
+    if (code <= 77 || code === 85 || code === 86) return "snow";
+    return "storm";
+  };
+
+  for (const el of document.querySelectorAll<HTMLElement>("[data-clock]")) {
+    const { locale, tz, lat, lon, labels } = el.dataset;
+    const time = el.querySelector<HTMLElement>("[data-time]")!;
+    const fmt = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", timeZone: tz });
+    const tick = () => (time.textContent = fmt.format(new Date()));
+    tick();
+    setInterval(tick, 15_000);
+
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=${encodeURIComponent(tz!)}`;
+    fetch(url)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((data) => {
+        const current = data?.current;
+        if (!current) return;
+        const names = JSON.parse(labels ?? "{}");
+        el.querySelector("[data-temp]")!.textContent = `${Math.round(current.temperature_2m)}°C`;
+        el.querySelector("[data-condition]")!.textContent = names[group(current.weather_code)] ?? "";
+        el.querySelector<HTMLElement>("[data-weather]")!.hidden = false;
+      })
+      .catch(() => {});
+  }
+</script>

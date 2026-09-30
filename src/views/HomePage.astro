@@ -1,0 +1,193 @@
+---
+import { Image } from "astro:assets";
+import me from "../assets/me.jpg";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon, { type IconName } from "../components/Icon.astro";
+import ClockWeather from "../components/ClockWeather.astro";
+import GithubHeatmap from "../components/GithubHeatmap.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import PostItem from "../components/PostItem.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ContactCta from "../components/ContactCta.astro";
+import { site } from "../config/site";
+import { coreStack } from "../data/profile";
+import { projects } from "../data/projects";
+import { getPostList } from "../lib/posts";
+import { otherLang, path, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const posts = (await getPostList(lang)).slice(0, 3);
+const featured = projects.filter((p) => p.featured).slice(0, 4);
+
+const navCards: { icon: IconName; label: string; title: string; text: string; href: string }[] = [
+  { icon: "code", label: t("card.projects.label"), title: t("card.projects.title"), text: t("card.projects.text"), href: path("projects", lang) },
+  { icon: "user", label: t("card.about.label"), title: t("card.about.title"), text: t("card.about.text"), href: path("about", lang) },
+  { icon: "book", label: t("card.blog.label"), title: t("card.blog.title"), text: t("card.blog.text"), href: path("blog", lang) },
+  { icon: "message", label: t("card.contact.label"), title: t("card.contact.title"), text: t("card.contact.text"), href: "#contato" },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.fullName,
+  alternateName: site.name,
+  url: Astro.site?.href,
+  jobTitle: t("hero.eyebrow"),
+  sameAs: Object.values(site.socials),
+  alumniOf: ["Univille", "SENAI/SC"],
+  knowsAbout: coreStack,
+};
+---
+
+<BaseLayout lang={lang} active="home" alternate={path("home", otherLang(lang))} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="container-page pt-14 sm:pt-24">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
+      <div>
+        <div class="flex flex-wrap items-center gap-3">
+          <p class="eyebrow">{t("hero.eyebrow")}</p>
+          {
+            site.available && (
+              <span class="chip gap-2 border-accent/30 py-1 text-fg">
+                <span class="relative flex size-2">
+                  <span class="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
+                  <span class="relative inline-flex size-2 rounded-full bg-accent" />
+                </span>
+                {t("hero.available")}
+              </span>
+            )
+          }
+        </div>
+
+        <h1 class="mt-6 max-w-3xl text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.5rem]">
+          {t("hero.title")}{" "}
+          <em class="font-serif font-normal tracking-normal text-accent">{t("hero.titleAccent")}</em>
+        </h1>
+
+        <p class="mt-6 font-mono text-[0.8rem] leading-relaxed text-subtle">
+          <span class="text-fg">{site.fullName}</span>
+          <span aria-hidden="true"> · </span>Python/Django
+          <span aria-hidden="true"> · </span>TypeScript/React
+          <span aria-hidden="true"> · </span>{t("hero.meta.student")} @ Univille
+          <span aria-hidden="true"> · </span>{site.location.label}
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={path("projects", lang)} class="btn-primary">
+            {t("hero.cta.projects")}
+            <Icon name="arrow-right" />
+          </a>
+          <a href={path("blog", lang)} class="btn-ghost">
+            <Icon name="book" />
+            {t("hero.cta.blog")}
+          </a>
+          <a href={`/cv-${lang}.pdf`} class="btn-ghost" download>
+            <Icon name="download" />
+            {t("hero.cta.cv")}
+          </a>
+        </div>
+      </div>
+
+      <div class="relative mx-auto hidden w-64 sm:block lg:w-72">
+        <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl border border-accent/40" aria-hidden="true"></div>
+        <Image
+          src={me}
+          alt={site.fullName}
+          width={576}
+          height={576}
+          class="relative aspect-square w-full rounded-3xl border border-border object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento -->
+  <section class="container-page mt-20" aria-label={lang === "pt" ? "Painel" : "Dashboard"}>
+    <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <div class="card relative col-span-2 flex flex-col justify-between gap-8 p-6">
+        <div>
+          <p class="label flex items-center gap-2">
+            <Icon name="hammer" size={14} />
+            {t("now.label")}
+          </p>
+          <h2 class="mt-4 flex items-center gap-2 text-2xl font-semibold tracking-tight">
+            <a href={site.now.url} target="_blank" rel="noopener" class="hover:text-accent">{site.now.name}</a>
+            <Icon name="arrow-up-right" size={18} class="text-subtle" />
+          </h2>
+          <p class="mt-2 max-w-md text-sm leading-relaxed text-pretty text-muted">{t("now.description")}</p>
+        </div>
+        <div class="flex gap-4 font-mono text-xs">
+          <a href={site.now.url} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+            <Icon name="globe" size={14} /> {t("projects.site")}
+          </a>
+          <a href={site.now.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+            <Icon name="github" size={14} /> {t("projects.code")}
+          </a>
+        </div>
+      </div>
+
+      <div class="col-span-2 sm:col-span-1">
+        <ClockWeather lang={lang} />
+      </div>
+
+      <div class="card col-span-2 flex flex-col gap-4 p-6 sm:col-span-1">
+        <p class="label flex items-center gap-2">
+          <Icon name="layers" size={14} />
+          {t("stack.label")}
+        </p>
+        <ul class="flex flex-wrap gap-1.5">
+          {coreStack.map((tech) => <li class="chip">{tech}</li>)}
+        </ul>
+      </div>
+
+      {
+        navCards.map((card) => (
+          <a href={card.href} class="card-link group flex flex-col justify-between gap-6 p-5 sm:p-6">
+            <Icon name={card.icon} size={22} class="text-muted transition-colors group-hover:text-accent" />
+            <div>
+              <p class="label">{card.label}</p>
+              <p class="mt-2 font-medium tracking-tight sm:text-lg">{card.title}</p>
+              <p class="mt-1 text-sm text-muted">{card.text}</p>
+            </div>
+          </a>
+        ))
+      }
+
+      <div class="col-span-2 lg:col-span-4">
+        <GithubHeatmap lang={lang} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts -->
+  {
+    posts.length > 0 && (
+      <section class="container-page mt-24">
+        <SectionHeading title={t("section.posts")} hint={t("section.posts.all")} href={path("blog", lang)} />
+        <div class="divide-y divide-border">
+          {posts.map((post, i) => (
+            <PostItem post={post} lang={lang} size={i === 0 ? "lg" : "md"} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Projetos -->
+  <section class="container-page mt-24">
+    <SectionHeading title={t("section.projects")} hint={t("section.projects.all")} href={path("projects", lang)} />
+    <div class="grid gap-4 md:grid-cols-2">
+      {featured.map((project) => <ProjectCard project={project} lang={lang} showYear={project.group !== "professional"} />)}
+    </div>
+  </section>
+
+  <ContactCta lang={lang} />
+</BaseLayout>

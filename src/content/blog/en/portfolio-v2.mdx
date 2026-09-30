@@ -1,0 +1,84 @@
+---
+title: "Portfolio v2: why I swapped Deno Fresh for Astro"
+description: I rebuilt my site from scratch to get a blog, two languages with their own URLs and almost no JavaScript in the browser. The decisions, the trade-offs and what's left for later.
+date: 2026-09-30
+category: Behind the scenes
+tags: [astro, architecture, frontend]
+---
+
+My old portfolio was a single page built with Deno Fresh 1.2 and twind. It worked for a while, but it stopped representing what I do today. This is version 2, and here are the decisions behind it.
+
+## Where I started
+
+The previous version had a few structural problems:
+
+- **One page for everything.** Experience, education and projects stacked together, with no room to grow.
+- **Nowhere to write.** My writing was scattered between DEV.to and LinkedIn.
+- **Language via cookie.** The PT/EN button set a cookie and reloaded the page. As far as Google knew, there was only one language.
+- **Stale dependencies.** twind was discontinued and Fresh 1.x fell behind.
+
+## Why Astro
+
+A portfolio with a blog is, above all, a content site. Astro ships static HTML by default and only sends JavaScript to the browser when I ask for it. On top of that:
+
+- **Content collections with a schema.** Every post is validated at build time. Bad frontmatter breaks the build, not production.
+- **MDX, RSS and sitemap** through official integrations.
+- **Static deploys** anywhere: Vercel, Netlify, Cloudflare or GitHub Pages.
+
+The blog schema looks like this:
+
+```ts
+const blog = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    category: z.string(),
+    tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+    externalUrl: z.url().optional(),
+  }),
+});
+```
+
+The `externalUrl` field lets the blog list posts I published elsewhere, like my older DEV.to articles, without duplicating content.
+
+## Two languages with real URLs
+
+Portuguese lives at the root and English under `/en`, with translated slugs:
+
+```ts
+const routes = {
+  home: { pt: "/", en: "/en" },
+  blog: { pt: "/blog", en: "/en/blog" },
+  projects: { pt: "/projetos", en: "/en/projects" },
+  about: { pt: "/sobre", en: "/en/about" },
+};
+```
+
+Every page declares its counterpart with `hreflang`, and the PT/EN button became a plain link. No cookie, no reload, and both languages can be indexed.
+
+UI strings live in a typed dictionary. If a key is missing in one language, TypeScript complains.
+
+## Almost no JavaScript
+
+The whole site sends three small scripts to the browser:
+
+1. the light/dark theme toggle;
+2. the clock with the weather in Joinville, using the free Open-Meteo API;
+3. the copy-email button.
+
+The GitHub contributions graph on the home page is generated **at build time** from the public contributions page. It needs no token and costs visitors nothing. A workflow redeploys once a day to keep the numbers fresh.
+
+## Design
+
+I took inspiration from Brazilian developers' portfolios I admire: a bento grid on the home page, editorial typography for posts and a single accent color. The whole theme lives in CSS variables wired into Tailwind v4's `@theme`. Changing the accent color is a one-line change.
+
+## What's left for later
+
+- Per-post share (OG) images
+- A newsletter
+- A `/uses` page with my setup
+
+The code is open source. Feel free to use it as a starting point for yours.

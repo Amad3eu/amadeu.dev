@@ -1,0 +1,96 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../config/site";
+import { path, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: t("footer.nav"),
+    links: [
+      { label: t("nav.home"), href: path("home", lang) },
+      { label: t("nav.projects"), href: path("projects", lang) },
+      { label: t("nav.about"), href: path("about", lang) },
+      { label: "CV (PDF)", href: `/cv-${lang}.pdf` },
+    ],
+  },
+  {
+    title: t("footer.content"),
+    links: [
+      { label: t("nav.blog"), href: path("blog", lang) },
+      { label: "RSS", href: path("rss", lang) },
+      { label: "DEV.to", href: site.socials.devto, external: true },
+    ],
+  },
+  {
+    title: t("footer.social"),
+    links: [
+      { label: "E-mail", href: `mailto:${site.email}` },
+      { label: "LinkedIn", href: site.socials.linkedin, external: true },
+      { label: "GitHub", href: site.socials.github, external: true },
+    ],
+  },
+];
+---
+
+<footer class="mt-24 border-t border-border">
+  <div class="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div class="max-w-xs space-y-3">
+      <p class="font-semibold tracking-tight">{site.name}</p>
+      <p class="text-sm leading-relaxed text-muted">{t("footer.tagline")}</p>
+      <div class="flex gap-2 pt-1">
+        <a href={site.socials.github} class="text-subtle hover:text-fg" aria-label="GitHub" rel="me noopener" target="_blank">
+          <Icon name="github" size={18} />
+        </a>
+        <a href={site.socials.linkedin} class="text-subtle hover:text-fg" aria-label="LinkedIn" rel="me noopener" target="_blank">
+          <Icon name="linkedin" size={18} />
+        </a>
+        <a href={`mailto:${site.email}`} class="text-subtle hover:text-fg" aria-label="E-mail">
+          <Icon name="mail" size={18} />
+        </a>
+        <a href={path("rss", lang)} class="text-subtle hover:text-fg" aria-label="RSS">
+          <Icon name="rss" size={18} />
+        </a>
+      </div>
+    </div>
+    {
+      columns.map((col) => (
+        <div>
+          <p class="label mb-4">{col.title}</p>
+          <ul class="space-y-2.5 text-sm">
+            {col.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="inline-block text-muted transition-colors first-letter:uppercase hover:text-fg"
+                  {...("external" in link && link.external ? { target: "_blank", rel: "noopener" } : {})}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+  <div class="border-t border-border">
+    <div class="container-page flex flex-col gap-2 py-6 font-mono text-xs text-subtle sm:flex-row sm:justify-between">
+      <p>© {year} {site.fullName}</p>
+      <p>
+        <a href={`https://github.com/${site.github.repo}`} class="hover:text-fg" target="_blank" rel="noopener">
+          {t("footer.rights")}
+        </a>
+        <span aria-hidden="true"> · </span>
+        {t("footer.built")}
+      </p>
+    </div>
+  </div>
+</footer>

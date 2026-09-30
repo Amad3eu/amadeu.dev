@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import me from "../assets/me.jpg";
+import Icon from "./Icon.astro";
+import { site } from "../config/site";
+import { languages, otherLang, path, useTranslations, type Lang, type RouteKey } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  active?: RouteKey;
+  alternate: string;
+}
+
+const { lang, active, alternate } = Astro.props;
+const t = useTranslations(lang);
+const other = otherLang(lang);
+
+const links: { key: RouteKey; label: string }[] = [
+  { key: "home", label: t("nav.home") },
+  { key: "blog", label: t("nav.blog") },
+  { key: "projects", label: t("nav.projects") },
+  { key: "about", label: t("nav.about") },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-border/60 bg-bg/80 backdrop-blur-md">
+  <div class="container-page flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-3">
+    <a href={path("home", lang)} class="order-1 flex items-center gap-3" aria-label={site.name}>
+      <Image
+        src={me}
+        alt=""
+        width={36}
+        height={36}
+        class="size-9 rounded-full border border-border object-cover"
+        loading="eager"
+      />
+      <span class="font-medium tracking-tight">{site.name}</span>
+    </a>
+
+    <div class="order-2 flex items-center gap-2 sm:order-3">
+      <button
+        type="button"
+        data-theme-toggle
+        class="grid size-9 place-items-center rounded-full border border-border text-muted transition-colors hover:border-border-strong hover:text-fg"
+        aria-label={t("theme.toggle")}
+        title={t("theme.toggle")}
+      >
+        <Icon name="sun" class="hidden dark:block" />
+        <Icon name="moon" class="block dark:hidden" />
+      </button>
+      <a
+        href={alternate}
+        hreflang={languages[other].htmlLang}
+        class="grid h-9 place-items-center rounded-full border border-border px-3 font-mono text-xs text-muted transition-colors hover:border-border-strong hover:text-fg"
+        aria-label={t("lang.switch")}
+        title={t("lang.switch")}
+      >
+        {languages[other].label}
+      </a>
+    </div>
+
+    <nav class="order-3 -mx-2 w-full overflow-x-auto sm:order-2 sm:mx-0 sm:ml-auto sm:w-auto" aria-label={lang === "pt" ? "Principal" : "Main"}>
+      <ul class="flex items-center gap-1 font-mono text-[0.8rem]">
+        {
+          links.map(({ key, label }) => {
+            const isActive = key === active;
+            return (
+              <li>
+                <a
+                  href={path(key, lang)}
+                  aria-current={isActive ? "page" : undefined}
+                  class:list={[
+                    "inline-block rounded-md px-2 py-1 transition-colors",
+                    isActive ? "text-fg" : "text-subtle hover:text-fg",
+                  ]}
+                >
+                  <span class="text-accent">/</span>
+                  {label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+  });
+</script>

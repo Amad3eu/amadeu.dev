@@ -1,0 +1,27 @@
+---
+/** Cabeçalho de seção no estilo "/posts ........ artigos recentes". */
+interface Props {
+  title: string;
+  hint?: string;
+  href?: string;
+  as?: "h1" | "h2";
+}
+
+const { title, hint, href, as: Tag = "h2" } = Astro.props;
+---
+
+<div class="mb-8 flex flex-col gap-1 border-b border-border pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+  <Tag class="font-mono text-lg">
+    <span class="text-accent">/</span>{title}
+  </Tag>
+  {
+    hint &&
+      (href ? (
+        <a href={href} class="font-mono text-xs text-subtle transition-colors hover:text-fg">
+          {hint} →
+        </a>
+      ) : (
+        <span class="font-mono text-xs text-subtle">{hint}</span>
+      ))
+  }
+</div>
