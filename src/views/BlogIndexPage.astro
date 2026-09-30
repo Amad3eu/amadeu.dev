@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import PostItem from "../components/PostItem.astro";
+import { getPostList, type PostSummary } from "../lib/posts";
+import { otherLang, path, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const posts = await getPostList(lang);
+
+const byYear = posts.reduce<Map<number, PostSummary[]>>((acc, post) => {
+  const year = post.date.getUTCFullYear();
+  acc.set(year, [...(acc.get(year) ?? []), post]);
+  return acc;
+}, new Map());
+---
+
+<BaseLayout
+  lang={lang}
+  title={t("blog.title")}
+  description={t("blog.description")}
+  active="blog"
+  alternate={path("blog", otherLang(lang))}
+>
+  <div class="container-prose pt-14 sm:pt-20">
+    <header class="mb-12">
+      <p class="eyebrow">/{t("nav.blog")}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{t("blog.title")}</h1>
+      <p class="mt-4 max-w-xl leading-relaxed text-muted">{t("blog.description")}</p>
+      <a href={path("rss", lang)} class="mt-5 inline-flex items-center gap-2 font-mono text-xs text-subtle hover:text-fg">
+        <Icon name="rss" size={14} /> RSS
+      </a>
+    </header>
+
+    {posts.length === 0 && <p class="text-muted">{t("blog.empty")}</p>}
+
+    {
+      [...byYear].map(([year, items]) => (
+        <section class="mb-10">
+          <h2 class="sticky top-16 z-10 -mx-1 border-b border-border bg-bg/90 px-1 py-2 font-mono text-sm text-subtle backdrop-blur">
+            {year}
+          </h2>
+          <div class="divide-y divide-border">
+            {items.map((post) => (
+              <PostItem post={post} lang={lang} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

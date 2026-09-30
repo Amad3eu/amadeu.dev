@@ -1,0 +1,15 @@
+---
+import type { GetStaticPaths } from "astro";
+import PostPage from "../../views/PostPage.astro";
+import { getLocalPosts, splitId } from "../../lib/posts";
+
+export const getStaticPaths = (async () =>
+  (await getLocalPosts("pt")).map((post) => ({
+    params: { slug: splitId(post.id).slug },
+    props: { post },
+  }))) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+---
+
+<PostPage post={post} lang="pt" />

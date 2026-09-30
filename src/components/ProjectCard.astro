@@ -1,0 +1,50 @@
+---
+import Icon from "./Icon.astro";
+import { l, useTranslations, type Lang } from "../i18n";
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+  lang: Lang;
+  showYear?: boolean;
+}
+
+const { project, lang, showYear = true } = Astro.props;
+const t = useTranslations(lang);
+const primary = project.url ?? project.repo;
+---
+
+<article class="card-link group relative flex h-full flex-col p-6">
+  <div class="mb-4 flex items-center justify-between gap-3 font-mono text-xs text-subtle">
+    <span class="text-accent">{l(lang, project.kind)}</span>
+    {showYear && <span>{project.year}</span>}
+  </div>
+  <h3 class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+    {
+      primary ? (
+        <a href={primary} target="_blank" rel="noopener" class="after:absolute after:inset-0">
+          {project.name}
+        </a>
+      ) : (
+        project.name
+      )
+    }
+    {primary && <Icon name="arrow-up-right" size={16} class="text-subtle transition-colors group-hover:text-accent" />}
+  </h3>
+  <p class="mt-2 flex-1 text-sm leading-relaxed text-pretty text-muted">{l(lang, project.description)}</p>
+  <ul class="mt-5 flex flex-wrap gap-1.5">
+    {project.stack.map((tech) => <li class="chip">{tech}</li>)}
+  </ul>
+  {
+    project.url && project.repo && (
+      <div class="relative z-10 mt-5 flex gap-4 border-t border-border pt-4 font-mono text-xs">
+        <a href={project.url} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+          <Icon name="globe" size={14} /> {t("projects.site")}
+        </a>
+        <a href={project.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+          <Icon name="github" size={14} /> {t("projects.code")}
+        </a>
+      </div>
+    )
+  }
+</article>

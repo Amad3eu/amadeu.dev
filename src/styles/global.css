@@ -1,0 +1,194 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --fg: #18181b;
+  --muted: #52525b;
+  --subtle: #71717a;
+  --accent: #4d7c0f;
+  --accent-fg: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, transparent);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0b0b0c;
+  --surface: #111113;
+  --surface-2: #19191c;
+  --border: #232327;
+  --border-strong: #303036;
+  --fg: #ededed;
+  --muted: #a1a1aa;
+  --subtle: #7c7c85;
+  --accent: #a3e635;
+  --accent-fg: #0b0b0c;
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, transparent);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    background-color: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ---------- Componentes utilitários ---------- */
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility container-prose {
+  @apply mx-auto w-full max-w-3xl px-4 sm:px-6;
+}
+
+@utility eyebrow {
+  @apply font-mono text-xs tracking-[0.18em] text-accent uppercase;
+}
+
+@utility label {
+  @apply font-mono text-[0.7rem] tracking-[0.16em] text-subtle uppercase;
+}
+
+@utility card {
+  @apply rounded-2xl border border-border bg-surface transition-colors duration-200;
+}
+
+@utility card-link {
+  @apply card hover:border-border-strong hover:bg-surface-2;
+}
+
+@utility chip {
+  @apply inline-flex items-center rounded-full border border-border px-2.5 py-0.5 font-mono text-[0.7rem] text-muted;
+}
+
+@utility link-arrow {
+  @apply inline-flex items-center gap-1.5 font-medium text-accent underline-offset-4 hover:underline;
+}
+
+@utility btn {
+  @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200;
+}
+
+@utility btn-primary {
+  @apply btn bg-accent text-accent-fg hover:opacity-90;
+}
+
+@utility btn-ghost {
+  @apply btn border border-border text-fg hover:border-border-strong hover:bg-surface-2;
+}
+
+/* ---------- Heatmap do GitHub ---------- */
+.heat-0 { background: var(--surface-2); }
+.heat-1 { background: color-mix(in oklab, var(--accent) 28%, var(--surface-2)); }
+.heat-2 { background: color-mix(in oklab, var(--accent) 50%, var(--surface-2)); }
+.heat-3 { background: color-mix(in oklab, var(--accent) 75%, var(--surface-2)); }
+.heat-4 { background: var(--accent); }
+
+/* ---------- Conteúdo dos posts ---------- */
+.prose-post {
+  --tw-prose-body: var(--muted);
+  --tw-prose-headings: var(--fg);
+  --tw-prose-lead: var(--muted);
+  --tw-prose-links: var(--fg);
+  --tw-prose-bold: var(--fg);
+  --tw-prose-counters: var(--subtle);
+  --tw-prose-bullets: var(--border-strong);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--fg);
+  --tw-prose-quote-borders: var(--accent);
+  --tw-prose-captions: var(--subtle);
+  --tw-prose-code: var(--fg);
+  --tw-prose-pre-code: var(--fg);
+  --tw-prose-pre-bg: var(--surface);
+  --tw-prose-th-borders: var(--border-strong);
+  --tw-prose-td-borders: var(--border);
+}
+
+.prose-post a {
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
+
+.prose-post :where(code):not(:where(pre code)) {
+  @apply rounded-md border border-border bg-surface-2 px-1.5 py-0.5 font-normal;
+}
+
+.prose-post :where(code):not(:where(pre code))::before,
+.prose-post :where(code):not(:where(pre code))::after {
+  content: none;
+}
+
+.prose-post pre {
+  @apply rounded-xl border border-border text-[0.85rem] leading-relaxed;
+}
+
+.prose-post h2,
+.prose-post h3 {
+  @apply tracking-tight;
+}
+
+/* Shiki com dois temas (claro/escuro), controlado por data-theme */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light);
+}
+[data-theme="dark"] .astro-code,
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark);
+}
+.astro-code {
+  background-color: var(--surface) !important;
+}

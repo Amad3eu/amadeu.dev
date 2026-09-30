@@ -1,0 +1,61 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../config/site";
+import { languages, useTranslations, type Lang } from "../i18n";
+import { getContributions } from "../lib/github";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const data = await getContributions(site.github.user);
+// No celular mostra só os últimos meses para as células não ficarem minúsculas.
+const MOBILE_WEEKS = 26;
+const total = data ? new Intl.NumberFormat(languages[lang].dateLocale).format(data.total) : "";
+---
+
+{
+  data && (
+    <a
+      href={site.socials.github}
+      target="_blank"
+      rel="noopener"
+      class="card-link group flex h-full flex-col gap-5 p-6"
+    >
+      <div class="flex items-center justify-between">
+        <p class="label flex items-center gap-2">
+          <Icon name="github" size={14} />
+          {t("github.label")}
+        </p>
+        <Icon name="arrow-up-right" size={16} class="text-subtle transition-colors group-hover:text-accent" />
+      </div>
+
+      <div
+        class="grid w-full grid-cols-[repeat(var(--weeks-sm),minmax(0,1fr))] gap-[3px] sm:grid-cols-[repeat(var(--weeks),minmax(0,1fr))]"
+        style={`--weeks: ${data.weeks.length}; --weeks-sm: ${MOBILE_WEEKS};`}
+        role="img"
+        aria-label={t("github.total", { n: total })}
+      >
+        {data.weeks.map((week, i) => (
+          <div class:list={["grid-rows-7 gap-[3px]", i < data.weeks.length - MOBILE_WEEKS ? "hidden sm:grid" : "grid"]}>
+            {i === 0 && Array.from({ length: 7 - week.length }, () => <span class="aspect-square" />)}
+            {week.map((day) => (
+              <span class={`heat-${day.level} aspect-square rounded-[2px]`} title={day.date} />
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 text-sm">
+        <p class="text-muted">{t("github.total", { n: total })}</p>
+        <div class="flex items-center gap-1.5 font-mono text-xs text-subtle" aria-hidden="true">
+          {t("github.less")}
+          {[0, 1, 2, 3, 4].map((lvl) => <span class={`heat-${lvl} size-2.5 rounded-[2px]`} />)}
+          {t("github.more")}
+        </div>
+      </div>
+    </a>
+  )
+}

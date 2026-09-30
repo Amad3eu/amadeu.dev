@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Icon from "../components/Icon.astro";
+import { projects, type ProjectGroup } from "../data/projects";
+import { l, otherLang, path, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const byGroup = (group: ProjectGroup) =>
+  projects.filter((p) => p.group === group).sort((a, b) => b.year - a.year);
+
+const archive = byGroup("archive");
+---
+
+<BaseLayout
+  lang={lang}
+  title={t("projects.title")}
+  description={t("projects.description")}
+  active="projects"
+  alternate={path("projects", otherLang(lang))}
+>
+  <div class="container-page pt-14 sm:pt-20">
+    <header class="mb-16 max-w-2xl">
+      <p class="eyebrow">/{t("nav.projects")}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{t("projects.title")}</h1>
+      <p class="mt-4 leading-relaxed text-muted">{t("projects.description")}</p>
+    </header>
+
+    <section class="mb-20">
+      <SectionHeading title={t("projects.professional")} hint={t("projects.professional.hint")} />
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {byGroup("professional").map((project) => <ProjectCard project={project} lang={lang} showYear={false} />)}
+      </div>
+    </section>
+
+    <section class="mb-20">
+      <SectionHeading title={t("projects.oss")} hint={t("projects.oss.hint")} />
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {byGroup("oss").map((project) => <ProjectCard project={project} lang={lang} />)}
+      </div>
+    </section>
+
+    <section>
+      <SectionHeading title={t("projects.archive")} hint={t("projects.archive.hint")} />
+      <ul class="divide-y divide-border">
+        {
+          archive.map((project) => {
+            const href = project.url ?? project.repo;
+            return (
+              <li class="group relative grid gap-1 py-4 sm:grid-cols-[4rem_12rem_1fr_auto] sm:items-baseline sm:gap-6">
+                <span class="font-mono text-xs text-subtle">{project.year}</span>
+                <span class="font-medium">
+                  {href ? (
+                    <a href={href} target="_blank" rel="noopener" class="after:absolute after:inset-0 group-hover:text-accent">
+                      {project.name}
+                    </a>
+                  ) : (
+                    project.name
+                  )}
+                </span>
+                <span class="text-sm text-muted">{l(lang, project.description)}</span>
+                <span class="hidden font-mono text-xs text-subtle sm:inline-flex sm:items-center sm:gap-1">
+                  {project.stack.slice(0, 2).join(" · ")}
+                  {href && <Icon name="arrow-up-right" size={12} />}
+                </span>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

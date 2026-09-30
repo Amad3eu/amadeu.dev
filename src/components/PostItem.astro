@@ -1,0 +1,50 @@
+---
+import Icon from "./Icon.astro";
+import { formatDate, useTranslations, type Lang } from "../i18n";
+import type { PostSummary } from "../lib/posts";
+
+interface Props {
+  post: PostSummary;
+  lang: Lang;
+  size?: "lg" | "md";
+}
+
+const { post, lang, size = "md" } = Astro.props;
+const t = useTranslations(lang);
+const isOtherLang = post.lang !== lang;
+---
+
+<article class="group relative py-6">
+  <p class="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-subtle">
+    <span class="text-accent">{post.category}</span>
+    <time datetime={post.date.toISOString()}>{formatDate(post.date, lang)}</time>
+    <span aria-hidden="true">·</span>
+    <span>{t("blog.readingTime", { n: post.readingTime })}</span>
+    {isOtherLang && <span class="chip py-0 text-[0.65rem]">{t("blog.otherLang")}</span>}
+    {
+      post.external && (
+        <span class="inline-flex items-center gap-1">
+          <span aria-hidden="true">·</span>
+          {t("blog.external", { site: post.externalSite ?? "web" })}
+          <Icon name="arrow-up-right" size={12} />
+        </span>
+      )
+    }
+  </p>
+  <h3
+    class:list={[
+      "font-semibold tracking-tight text-balance transition-colors group-hover:text-accent",
+      size === "lg" ? "text-2xl sm:text-3xl" : "text-xl",
+    ]}
+  >
+    <a
+      href={post.href}
+      class="after:absolute after:inset-0"
+      hreflang={isOtherLang ? post.lang : undefined}
+      {...(post.external ? { target: "_blank", rel: "noopener" } : {})}
+    >
+      {post.title}
+    </a>
+  </h3>
+  <p class="mt-2 max-w-2xl leading-relaxed text-pretty text-muted">{post.description}</p>
+</article>
