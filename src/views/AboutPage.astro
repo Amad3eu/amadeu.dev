@@ -74,18 +74,25 @@ const range = (start: string, end?: string) =>
         {
           experience.map((job) => (
             <li class="grid gap-3 sm:grid-cols-[11rem_1fr] sm:gap-8">
-              <p class="font-mono text-xs whitespace-nowrap text-subtle sm:pt-1.5">{range(job.start, job.end)}</p>
+              <div class="space-y-1 font-mono text-xs text-subtle sm:pt-1.5">
+                <p class="whitespace-nowrap">{range(job.start, job.end)}</p>
+                {job.location && <p>{l(lang, job.location)}</p>}
+              </div>
               <div>
                 <h3 class="text-lg font-semibold tracking-tight">
                   {l(lang, job.role)} <span class="text-subtle">·</span> <span class="text-accent">{job.company}</span>
                 </h3>
-                <ul class="mt-3 space-y-2 text-muted">
-                  {l(lang, job.highlights).map((item) => (
-                    <li class="relative pl-5 leading-relaxed before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2.5 before:bg-border-strong">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                {
+                  l(lang, job.highlights).length > 0 && (
+                    <ul class="mt-3 space-y-2 text-muted">
+                      {l(lang, job.highlights).map((item) => (
+                        <li class="relative pl-5 leading-relaxed before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2.5 before:bg-border-strong">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                }
                 <ul class="mt-4 flex flex-wrap gap-1.5">
                   {job.stack.map((tech) => (
                     <li class="chip">{tech}</li>
