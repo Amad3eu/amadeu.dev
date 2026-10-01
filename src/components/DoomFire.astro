@@ -1,0 +1,154 @@
+---
+/**
+ * Efeito de fogo do Doom em canvas. Port do meu Fireplace-Doom (2022).
+ * Mostra um quadro parado ao carregar e só anima depois do clique.
+ */
+import { useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div
+  class="card overflow-hidden"
+  data-fire
+  data-label-play={t("lab.fire.play")}
+  data-label-pause={t("lab.fire.pause")}
+  data-label-original={t("lab.fire.palette.original")}
+  data-label-classic={t("lab.fire.palette.classic")}
+>
+  <canvas
+    width="65"
+    height="50"
+    class="block aspect-[65/50] w-full [image-rendering:pixelated]"
+    role="img"
+    aria-label={t("lab.fire.canvas")}></canvas>
+  <div class="flex flex-wrap items-center gap-2 border-t border-border p-4">
+    <button type="button" class="btn-primary" data-fire-toggle aria-pressed="false">
+      {t("lab.fire.play")}
+    </button>
+    <button type="button" class="btn-ghost" data-fire-more>{t("lab.fire.more")}</button>
+    <button type="button" class="btn-ghost" data-fire-less>{t("lab.fire.less")}</button>
+    <button type="button" class="btn-ghost sm:ml-auto" data-fire-palette>
+      <span class="text-subtle">{t("lab.fire.palette")}:</span>
+      <span data-fire-palette-name>{t("lab.fire.palette.original")}</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  type Rgb = [number, number, number];
+
+  const WIDTH = 65;
+  const HEIGHT = 50;
+  const MAX = 36;
+  const STEP_MS = 50;
+
+  // Paleta rosa do projeto original.
+  const ORIGINAL: Rgb[] = [
+    [7, 7, 7], [31, 7, 31], [47, 15, 31], [171, 15, 67], [255, 63, 87], [200, 51, 113],
+    [255, 51, 129], [253, 79, 133], [255, 87, 189], [255, 73, 185], [231, 81, 131], [255, 91, 99],
+    [223, 79, 203], [203, 69, 180], [223, 87, 209], [215, 95, 209], [215, 95, 209], [215, 103, 209],
+    [255, 111, 209], [237, 119, 209], [255, 127, 209], [207, 135, 189], [199, 135, 189], [199, 143, 189],
+    [199, 151, 181], [191, 159, 181], [191, 159, 181], [191, 167, 177], [191, 167, 177], [191, 175, 177],
+    [183, 175, 177], [183, 183, 177], [183, 55, 183], [207, 111, 207], [223, 159, 223], [209, 199, 255],
+    [205, 195, 255],
+  ];
+
+  // Paleta clássica do Doom (PSX).
+  const CLASSIC: Rgb[] = [
+    [7, 7, 7], [31, 7, 7], [47, 15, 7], [71, 15, 7], [87, 23, 7], [103, 31, 7],
+    [119, 31, 7], [143, 39, 7], [159, 47, 7], [175, 63, 7], [191, 71, 7], [199, 71, 7],
+    [223, 79, 7], [223, 87, 7], [223, 87, 7], [215, 95, 7], [215, 95, 7], [215, 103, 15],
+    [207, 111, 15], [207, 119, 15], [207, 127, 15], [207, 135, 23], [199, 135, 23], [199, 143, 23],
+    [199, 151, 31], [191, 159, 31], [191, 159, 31], [191, 167, 39], [191, 167, 39], [191, 175, 47],
+    [183, 175, 47], [183, 183, 47], [183, 183, 55], [207, 207, 111], [223, 223, 159], [239, 239, 199],
+    [255, 255, 255],
+  ];
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-fire]")) {
+    const canvas = root.querySelector("canvas")!;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) continue;
+
+    const pixels = new Uint8Array(WIDTH * HEIGHT);
+    const image = ctx.createImageData(WIDTH, HEIGHT);
+    const sourceStart = WIDTH * (HEIGHT - 1);
+    let palette = ORIGINAL;
+    let running = false;
+    let visible = true;
+    let last = 0;
+
+    const setSource = (fn: (current: number) => number) => {
+      for (let i = sourceStart; i < pixels.length; i++) pixels[i] = fn(pixels[i]);
+    };
+
+    const step = () => {
+      for (let i = 0; i < sourceStart; i++) {
+        const decay = Math.floor(Math.random() * 3);
+        const target = i - decay; // o mesmo decaimento empurra a chama para o lado
+        if (target >= 0) pixels[target] = Math.max(0, pixels[i + WIDTH] - decay);
+      }
+    };
+
+    const render = () => {
+      for (let i = 0; i < pixels.length; i++) {
+        const [r, g, b] = palette[pixels[i]];
+        image.data[i * 4] = r;
+        image.data[i * 4 + 1] = g;
+        image.data[i * 4 + 2] = b;
+        image.data[i * 4 + 3] = 255;
+      }
+      ctx.putImageData(image, 0, 0);
+    };
+
+    const frame = (now: number) => {
+      if (!running) return;
+      if (visible && now - last >= STEP_MS) {
+        last = now;
+        step();
+        render();
+      }
+      requestAnimationFrame(frame);
+    };
+
+    // Quadro inicial parado: simula alguns passos e desenha uma vez.
+    setSource(() => MAX);
+    for (let i = 0; i < 90; i++) step();
+    render();
+
+    new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(canvas);
+
+    const toggle = root.querySelector<HTMLButtonElement>("[data-fire-toggle]")!;
+    toggle.addEventListener("click", () => {
+      running = !running;
+      toggle.textContent = running ? root.dataset.labelPause! : root.dataset.labelPlay!;
+      toggle.setAttribute("aria-pressed", String(running));
+      if (running) requestAnimationFrame(frame);
+    });
+
+    const nudge = (direction: 1 | -1) => {
+      setSource((current) => {
+        const amount = Math.floor(Math.random() * 14) * direction;
+        return Math.min(MAX, Math.max(0, current + amount));
+      });
+      if (!running) {
+        for (let i = 0; i < 20; i++) step();
+        render();
+      }
+    };
+    root.querySelector("[data-fire-more]")!.addEventListener("click", () => nudge(1));
+    root.querySelector("[data-fire-less]")!.addEventListener("click", () => nudge(-1));
+
+    const paletteName = root.querySelector("[data-fire-palette-name]")!;
+    root.querySelector("[data-fire-palette]")!.addEventListener("click", () => {
+      palette = palette === ORIGINAL ? CLASSIC : ORIGINAL;
+      paletteName.textContent = palette === ORIGINAL ? root.dataset.labelOriginal! : root.dataset.labelClassic!;
+      render();
+    });
+  }
+</script>

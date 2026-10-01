@@ -1,0 +1,64 @@
+---
+/**
+ * Vandal Game embutido. Mostra só uma capa; o iframe (e o som do jogo)
+ * carrega depois do clique, para não pesar nem tocar nada sozinho.
+ */
+import { Image } from "astro:assets";
+import poster from "../assets/lab/vandal-game.png";
+import Icon from "./Icon.astro";
+import { game } from "../data/lab";
+import { useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="card overflow-hidden">
+  <div class="relative aspect-[4/3] sm:aspect-video" data-game data-src={game.url} data-title={t("lab.game.frame")}>
+    <Image
+      src={poster}
+      alt=""
+      width={1280}
+      class="h-full w-full object-cover"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 grid place-items-center bg-bg/50">
+      <button type="button" class="btn-primary px-6 py-3 text-base shadow-lg" data-game-play>
+        <span aria-hidden="true">▶</span>
+        {t("lab.game.play")}
+      </button>
+    </div>
+  </div>
+  <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border p-4">
+    <p class="text-sm text-muted">{t("lab.game.note")}</p>
+    <div class="flex gap-4 font-mono text-xs">
+      <a href={game.url} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+        <Icon name="arrow-up-right" size={14} />
+        {t("lab.game.open")}
+      </a>
+      <a href={game.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+        <Icon name="github" size={14} />
+        {t("projects.code")}
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  for (const slot of document.querySelectorAll<HTMLElement>("[data-game]")) {
+    slot.querySelector("[data-game-play]")?.addEventListener("click", () => {
+      const frame = document.createElement("iframe");
+      frame.src = slot.dataset.src!;
+      frame.title = slot.dataset.title!;
+      frame.className = "h-full w-full border-0";
+      frame.allow = "autoplay; fullscreen";
+      frame.setAttribute("sandbox", "allow-scripts allow-same-origin allow-forms allow-popups");
+      slot.replaceChildren(frame);
+      frame.focus();
+    });
+  }
+</script>
