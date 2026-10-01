@@ -3,6 +3,7 @@ import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
 import "../styles/global.css";
 
+import Analytics from "@vercel/analytics/astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../config/site";
@@ -94,6 +95,9 @@ const ogImage = new URL("/og.png", Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
 
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+    <!-- Contagem de visitas da Vercel (sem cookies). Só coleta em produção. -->
+    <Analytics />
 
     <!-- Aplica o tema antes da pintura para evitar flash -->
     <script is:inline>
