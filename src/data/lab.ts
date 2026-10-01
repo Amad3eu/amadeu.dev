@@ -6,12 +6,12 @@ import type { Localized } from "../i18n";
  */
 export const fire = {
   title: { pt: "Fogo do Doom", en: "Doom fire" } as Localized,
-  meta: "2022 · JavaScript",
+  meta: "2021 · JavaScript",
   repo: "https://github.com/Amad3eu/Fireplace-Doom",
   reference: "https://fabiensanglard.net/doom_fire_psx/",
   text: {
-    pt: "Reimplementação do efeito de fogo do Doom de PlayStation. Fiz a primeira versão em 2022, renderizando numa tabela HTML; aqui o mesmo algoritmo roda em canvas. A chama rosa é a paleta do projeto original, e a clássica está a um clique.",
-    en: "A reimplementation of the fire effect from Doom on PlayStation. I built the first version in 2022, rendering into an HTML table; here the same algorithm runs on a canvas. The pink flame is the original project's palette, and the classic one is a click away.",
+    pt: "Reimplementação do efeito de fogo do Doom de PlayStation. Fiz a primeira versão em 2021, renderizando numa tabela HTML; aqui o mesmo algoritmo roda em canvas. A chama rosa é a paleta do projeto original, e a clássica está a um clique.",
+    en: "A reimplementation of the fire effect from Doom on PlayStation. I built the first version in 2021, rendering into an HTML table; here the same algorithm runs on a canvas. The pink flame is the original project's palette, and the classic one is a click away.",
   } as Localized,
   how: {
     pt: [

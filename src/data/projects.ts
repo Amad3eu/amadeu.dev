@@ -1,4 +1,5 @@
 import type { Localized } from "../i18n";
+import { fire, game } from "./lab";
 
 export type ProjectGroup = "professional" | "oss" | "archive";
 
@@ -94,6 +95,16 @@ export const projects: Project[] = [
     repo: "https://github.com/Amad3eu/ToneLens",
   },
   {
+    name: game.title,
+    year: 2026,
+    group: "oss",
+    kind: { pt: "Jogo", en: "Game" },
+    description: game.text,
+    stack: ["React", "TypeScript", "Vite", "Expo"],
+    url: game.url,
+    repo: game.repo,
+  },
+  {
     name: "AquaTick",
     year: 2026,
     group: "oss",
@@ -145,6 +156,93 @@ export const projects: Project[] = [
   },
 
   // Arquivo
+  {
+    name: "Genne",
+    year: 2022,
+    group: "archive",
+    kind: { pt: "Ferramenta", en: "Tool" },
+    description: {
+      pt: "Gerador rápido e simples de README de perfil do GitHub em Markdown.",
+      en: "A fast and simple Markdown generator for GitHub profile READMEs.",
+    },
+    stack: ["React", "Tailwind CSS"],
+    url: "https://genne.vercel.app",
+    repo: "https://github.com/Amad3eu/Genne",
+  },
+  {
+    name: "SlaShop",
+    year: 2022,
+    group: "archive",
+    kind: { pt: "E-commerce", en: "E-commerce" },
+    description: {
+      pt: "E-commerce de estudo, com pagamento via Stripe.",
+      en: "Study e-commerce store with Stripe payments.",
+    },
+    stack: ["Next.js", "Stripe", "Tailwind CSS"],
+    url: "https://slashop.vercel.app",
+    repo: "https://github.com/Amad3eu/SlaShop",
+  },
+  {
+    name: "GoodFood",
+    year: 2022,
+    group: "archive",
+    kind: { pt: "Web app", en: "Web app" },
+    description: {
+      pt: "App de delivery de comida para vários restaurantes.",
+      en: "Food delivery app for multiple restaurants.",
+    },
+    stack: ["JavaScript"],
+    url: "https://goodfoodi.vercel.app",
+    repo: "https://github.com/Amad3eu/GoodFood",
+  },
+  {
+    name: "TempLI",
+    year: 2022,
+    group: "archive",
+    kind: { pt: "CLI", en: "CLI" },
+    description: {
+      pt: "Consulta de clima e temperatura pela linha de comando.",
+      en: "Weather and temperature lookup from the command line.",
+    },
+    stack: ["Go"],
+    repo: "https://github.com/Amad3eu/TempLI",
+  },
+  {
+    name: "hilla-todo",
+    year: 2023,
+    group: "archive",
+    kind: { pt: "Web app", en: "Web app" },
+    description: {
+      pt: "Lista de tarefas feita com o framework Hilla.",
+      en: "To-do list built with the Hilla framework.",
+    },
+    stack: ["Hilla", "React", "TypeScript"],
+    repo: "https://github.com/Amad3eu/hilla-todo",
+  },
+  {
+    name: "Fireplace Doom",
+    year: 2021,
+    group: "archive",
+    kind: { pt: "Experimento", en: "Experiment" },
+    description: {
+      pt: "Efeito de fogo do Doom em JavaScript puro. Uma versão em canvas roda no lab.",
+      en: "Doom's fire effect in plain JavaScript. A canvas version runs in the lab.",
+    },
+    stack: ["JavaScript"],
+    repo: fire.repo,
+  },
+  {
+    name: "Nubank Interface",
+    year: 2021,
+    group: "archive",
+    kind: { pt: "App mobile", en: "Mobile app" },
+    description: {
+      pt: "Interface do Nubank, meu primeiro contato com React Native.",
+      en: "Nubank's interface, my first contact with React Native.",
+    },
+    stack: ["React Native", "Expo"],
+    repo: "https://github.com/Amad3eu/NubankInterface-react-native",
+  },
   {
     name: "Goldies",
     year: 2022,
