@@ -5,13 +5,13 @@ export const bio: Localized<string[]> = {
   pt: [
     "Sou desenvolvedor full stack, com mais de 4 anos de experiência em sistemas web, produtos internos, APIs e integrações, e estudante de Engenharia de Software na Univille. Programo desde criança e passei pelo técnico em Informática integrado ao ensino médio no SENAI/SC.",
     "Hoje trabalho na JoinVix, em Joinville, onde desenvolvo módulos, addons e plugins personalizados para WHMCS, integrações com serviços externos e o sistema interno da empresa. Em paralelo, atendo clientes como freelancer.",
-    "Antes disso, trabalhei na Elint no Hermes CTRM, uma plataforma corporativa de gestão de operações de commodities, e na Aupi Soluções, com aplicações em Django e Next.js. Minha stack do dia a dia é PHP, Python/Django, TypeScript, React/Next.js, PostgreSQL e MySQL.",
+    "Antes disso, trabalhei na Elint no Hermes CTRM, uma plataforma corporativa de gestão de operações de commodities, passei pela X-Team como engenheiro de software e trabalhei dois anos na Aupi Soluções, com aplicações em Django e Next.js. Minha stack do dia a dia é PHP, Python/Django, TypeScript, React/Next.js, PostgreSQL e MySQL.",
     "Gosto de projetos com regras de negócio de verdade: pagamentos, integrações e automação de processos. Fora do trabalho, mantenho projetos open source como o MediaConv, escrevo sobre o que aprendo e uso Linux no dia a dia.",
   ],
   en: [
     "I'm a full stack developer with 4+ years of experience in web systems, internal products, APIs and integrations, and a Software Engineering student at Univille, Brazil. I've been programming since I was a kid and went through an IT technical program at SENAI/SC during high school.",
     "Today I work at JoinVix, in Joinville, building custom WHMCS modules, addons and plugins, integrations with external services and the company's internal system. On the side, I take on freelance clients.",
-    "Before that, I worked at Elint on Hermes CTRM, an enterprise platform for managing commodity trading operations, and at Aupi Soluções on Django and Next.js applications. My day-to-day stack is PHP, Python/Django, TypeScript, React/Next.js, PostgreSQL and MySQL.",
+    "Before that, I worked at Elint on Hermes CTRM, an enterprise platform for managing commodity trading operations, spent time at X-Team as a software engineer, and worked for two years at Aupi Soluções on Django and Next.js applications. My day-to-day stack is PHP, Python/Django, TypeScript, React/Next.js, PostgreSQL and MySQL.",
     "I enjoy projects with real business rules: payments, integrations and process automation. Outside work, I maintain open source projects like MediaConv, write about what I learn and run Linux day to day.",
   ],
 };
@@ -21,6 +21,8 @@ export type Job = {
   role: Localized;
   start: string; // YYYY-MM
   end?: string; // YYYY-MM, vazio = atual
+  /** Cidade e/ou modelo de trabalho, ex.: "Joinville, SC · Presencial". */
+  location?: Localized;
   highlights: Localized<string[]>;
   stack: string[];
 };
@@ -30,6 +32,7 @@ export const experience: Job[] = [
     company: "JoinVix",
     role: { pt: "Programador", en: "Software Developer" },
     start: "2026-07",
+    location: { pt: "Joinville, SC · Presencial", en: "Joinville, Brazil · On-site" },
     highlights: {
       pt: [
         "Módulos, addons e plugins personalizados para WHMCS, adequados a regras de negócio e fluxos internos",
@@ -53,6 +56,7 @@ export const experience: Job[] = [
     role: { pt: "Desenvolvedor Full Stack, Hermes CTRM", en: "Full Stack Developer, Hermes CTRM" },
     start: "2025-08",
     end: "2026-02",
+    location: { pt: "Florianópolis, SC · Remoto", en: "Florianópolis, Brazil · Remote" },
     highlights: {
       pt: [
         "Desenvolvimento do Hermes CTRM, plataforma corporativa para gestão de operações comerciais e processos de commodities",
@@ -72,18 +76,28 @@ export const experience: Job[] = [
     stack: ["Python", "Django", "DRF", "React", "Next.js", "TypeScript", "PostgreSQL"],
   },
   {
+    company: "X-Team",
+    role: { pt: "Engenheiro de Software", en: "Software Engineer" },
+    start: "2024-11",
+    end: "2025-02",
+    location: { pt: "Remoto", en: "Remote" },
+    // TODO: descrever o que foi feito na X-Team (2 a 4 itens por idioma).
+    highlights: { pt: [], en: [] },
+    stack: ["Go"],
+  },
+  {
     company: "Freelancer",
     role: { pt: "Desenvolvedor Full Stack", en: "Full Stack Developer" },
     start: "2024-11",
     highlights: {
       pt: [
-        "Sites, e-commerces, APIs e sistemas personalizados para clientes",
+        "Sites, e-commerces, APIs e sistemas personalizados para clientes, como o Meu Planner Financeiro (nov/2024 a jan/2025)",
         "Aplicações com React/Next.js, Python/Django e PHP, com PostgreSQL e MySQL",
         "Integrações com Stripe, Pagar.me, Asaas, PIX, webhooks, autenticação e serviços externos",
         "Deploy e manutenção com Docker, AWS, Nginx e Vercel, além de projetos com WordPress e WooCommerce",
       ],
       en: [
-        "Websites, e-commerce stores, APIs and custom systems for clients",
+        "Websites, e-commerce stores, APIs and custom systems for clients such as Meu Planner Financeiro (Nov 2024 to Jan 2025)",
         "Applications with React/Next.js, Python/Django and PHP, on PostgreSQL and MySQL",
         "Integrations with Stripe, Pagar.me, Asaas, PIX, webhooks, authentication and external services",
         "Deploys and maintenance with Docker, AWS, Nginx and Vercel, plus WordPress and WooCommerce projects",
@@ -96,6 +110,7 @@ export const experience: Job[] = [
     role: { pt: "Desenvolvedor Full Stack", en: "Full Stack Developer" },
     start: "2022-11",
     end: "2024-11",
+    location: { pt: "Joinville, SC · Presencial", en: "Joinville, Brazil · On-site" },
     highlights: {
       pt: [
         "Desenvolvimento e manutenção de aplicações web com React, Next.js, Python e Django",
