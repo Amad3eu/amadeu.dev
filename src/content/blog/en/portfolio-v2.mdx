@@ -63,11 +63,12 @@ UI strings live in a typed dictionary. If a key is missing in one language, Type
 
 ## Almost no JavaScript
 
-The whole site sends three small scripts to the browser:
+The main pages send only four small scripts to the browser:
 
 1. the light/dark theme toggle;
 2. the clock with the weather in Joinville, using the free Open-Meteo API;
-3. the copy-email button.
+3. the copy-email button;
+4. Vercel's visit counter, which uses no cookies.
 
 The GitHub contributions graph on the home page is generated **at build time** from the public contributions page. It needs no token and costs visitors nothing. A workflow redeploys once a day to keep the numbers fresh.
 
