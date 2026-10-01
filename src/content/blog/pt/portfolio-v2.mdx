@@ -63,11 +63,12 @@ Os textos de interface ficam num dicionário tipado. Se uma chave faltar em um i
 
 ## Quase nenhum JavaScript
 
-O site inteiro manda três scripts pequenos para o navegador:
+As páginas principais mandam só quatro scripts pequenos para o navegador:
 
 1. o botão de tema claro/escuro;
 2. o relógio com o clima de Joinville, usando a API gratuita do Open-Meteo;
-3. o botão de copiar e-mail.
+3. o botão de copiar e-mail;
+4. a contagem de visitas da Vercel, que não usa cookies.
 
 O gráfico de contribuições do GitHub na home é gerado **no build**, lendo a página pública de contribuições. Não precisa de token e não custa nada para quem visita. Um workflow refaz o deploy uma vez por dia para manter os números atualizados.
 
