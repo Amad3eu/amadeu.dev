@@ -65,17 +65,16 @@ const jsonLd = {
           }
         </div>
 
-        <h1 class="mt-6 max-w-3xl text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.5rem]">
-          {t("hero.title")}{" "}
-          <em class="font-serif font-normal tracking-normal text-accent">{t("hero.titleAccent")}</em>
+        <h1 class="mt-6 text-5xl leading-none font-semibold tracking-tight sm:text-6xl lg:text-7xl">
+          {site.name}
         </h1>
 
+        <p class="mt-6 max-w-2xl text-xl leading-relaxed text-pretty text-muted sm:text-2xl sm:leading-relaxed">
+          {t("hero.lead")}
+        </p>
+
         <p class="mt-6 font-mono text-[0.8rem] leading-relaxed text-subtle">
-          <span class="text-fg">{site.fullName}</span>
-          <span aria-hidden="true"> · </span>PHP
-          <span aria-hidden="true"> · </span>Python/Django
-          <span aria-hidden="true"> · </span>TypeScript/React
-          <span aria-hidden="true"> · </span>{t("hero.meta.student")} @ Univille
+          {t("hero.meta.student")} @ Univille
           <span aria-hidden="true"> · </span>{site.location.label}
         </p>
 

@@ -33,7 +33,7 @@ export const ui = {
   pt: {
     "meta.title": "Luiz Amadeu — Desenvolvedor Full Stack",
     "meta.description":
-      "Desenvolvedor full stack (PHP, Python/Django, TypeScript/React/Next.js). Sistemas web, APIs e integrações com regras de negócio de verdade.",
+      "Desenvolvedor full stack em Joinville, SC. Sistemas web, APIs e integrações de pagamento com PHP, Python/Django e React/Next.js.",
     "nav.home": "início",
     "nav.blog": "blog",
     "nav.projects": "projetos",
@@ -44,8 +44,8 @@ export const ui = {
     "lang.switch": "Read in English",
     "hero.eyebrow": "Desenvolvedor Full Stack",
     "hero.available": "Aberto a oportunidades",
-    "hero.title": "Desenvolvo sistemas web e APIs em torno de regras de negócio de verdade.",
-    "hero.titleAccent": "Do Django ao Next.js, com código que dura.",
+    "hero.lead":
+      "Construo sistemas web, APIs e integrações de pagamento com PHP, Python/Django e React/Next.js.",
     "hero.cta.projects": "Ver projetos",
     "hero.cta.blog": "Ler o blog",
     "hero.cta.cv": "Baixar CV",
@@ -154,7 +154,7 @@ export const ui = {
   en: {
     "meta.title": "Luiz Amadeu — Full Stack Developer",
     "meta.description":
-      "Full stack developer (PHP, Python/Django, TypeScript/React/Next.js). Web systems, APIs and integrations built around real business rules.",
+      "Full stack developer based in Joinville, Brazil. Web systems, APIs and payment integrations with PHP, Python/Django and React/Next.js.",
     "nav.home": "home",
     "nav.blog": "blog",
     "nav.projects": "projects",
@@ -165,8 +165,8 @@ export const ui = {
     "lang.switch": "Ler em português",
     "hero.eyebrow": "Full Stack Developer",
     "hero.available": "Open to opportunities",
-    "hero.title": "I build web systems and APIs around real business rules.",
-    "hero.titleAccent": "From Django to Next.js, with code that lasts.",
+    "hero.lead":
+      "I build web systems, APIs and payment integrations with PHP, Python/Django and React/Next.js.",
     "hero.cta.projects": "See projects",
     "hero.cta.blog": "Read the blog",
     "hero.cta.cv": "Download CV",

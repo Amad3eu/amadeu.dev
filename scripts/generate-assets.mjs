@@ -23,8 +23,8 @@ const ogSvg = `
   <circle cx="1080" cy="80" r="260" fill="${ACCENT}" opacity="0.06"/>
   <text x="80" y="140" font-family="${MONO}" font-size="24" letter-spacing="4" fill="${ACCENT}">DESENVOLVEDOR FULL STACK</text>
   <text x="80" y="250" font-family="${FONT}" font-weight="700" font-size="92" fill="${FG}">Luiz Amadeu</text>
-  <text x="80" y="320" font-family="${FONT}" font-size="36" fill="${MUTED}">Sistemas web e APIs com regras de negócio de verdade.</text>
-  <text x="80" y="540" font-family="${MONO}" font-size="24" fill="${MUTED}"><tspan fill="${ACCENT}">/</tspan>Python · Django · TypeScript · React · Next.js</text>
+  <text x="80" y="320" font-family="${FONT}" font-size="36" fill="${MUTED}">Sistemas web, APIs e integrações de pagamento.</text>
+  <text x="80" y="540" font-family="${MONO}" font-size="24" fill="${MUTED}"><tspan fill="${ACCENT}">/</tspan>PHP · Python/Django · TypeScript/React · Next.js</text>
 </svg>`;
 
 const photo = await sharp(await readFile("src/assets/me.jpg"))
