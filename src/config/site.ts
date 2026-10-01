@@ -24,6 +24,8 @@ export const site = {
     github: "https://github.com/Amad3eu",
     linkedin: "https://www.linkedin.com/in/amad3eu",
     devto: "https://dev.to/amad3eu",
+    tabnews: "https://www.tabnews.com.br/amad3eu",
+    hashnode: "https://hashnode.com/@Amad3eu",
   },
   /**
    * Currículo por idioma (arquivos em public/).
