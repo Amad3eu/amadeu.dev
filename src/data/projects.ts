@@ -19,15 +19,15 @@ export const projects: Project[] = [
   // Trabalho profissional
   {
     name: "Hermes CTRM",
-    year: 2025,
+    year: 2026,
     group: "professional",
     featured: true,
     kind: { pt: "Plataforma", en: "Platform" },
     description: {
-      pt: "Plataforma de trading e gestão de risco de commodities. Features de ponta a ponta em contratos, pedidos, embarques, washouts, faturas, validações, preços e custos.",
-      en: "Commodity trading and risk management platform. End-to-end features across contracts, orders, shipments, washouts, invoices, validations, pricing and costs.",
+      pt: "Plataforma corporativa da Elint para gestão de operações comerciais e processos de commodities. Entreguei funcionalidades em contratos, ordens, shipments, washouts, invoices, fluxos de faturamento, pricing e custos.",
+      en: "Elint's enterprise platform for managing commercial operations and commodity processes. I shipped features across contracts, orders, shipments, washouts, invoices, invoicing flows, pricing and costs.",
     },
-    stack: ["Python", "Django", "DRF", "React", "Next.js", "PostgreSQL"],
+    stack: ["Python", "Django", "DRF", "React", "Next.js", "TypeScript", "PostgreSQL"],
   },
   {
     name: "UNESCO MIL Cities",
@@ -35,19 +35,19 @@ export const projects: Project[] = [
     group: "professional",
     kind: { pt: "Backend", en: "Backend" },
     description: {
-      pt: "Backend de uma plataforma ligada à iniciativa UNESCO MIL Cities: lógica de aplicação, APIs, modelagem de dados e arquitetura sustentável.",
-      en: "Backend for a platform connected to the UNESCO MIL Cities initiative: application logic, APIs, data modeling and maintainable architecture.",
+      pt: "Backend e APIs de uma solução ligada à iniciativa Media and Information Literacy Cities, da UNESCO, com foco em regras de negócio, estruturação de dados e robustez da aplicação.",
+      en: "Backend and APIs for a solution connected to UNESCO's Media and Information Literacy Cities initiative, focused on business rules, data structuring and application robustness.",
     },
     stack: ["Python", "Django", "REST APIs", "PostgreSQL"],
   },
   {
     name: "Aupi Tools",
-    year: 2023,
+    year: 2024,
     group: "professional",
     kind: { pt: "Produto", en: "Product" },
     description: {
-      pt: "Plataforma de utilitários web que consome APIs externas, criada durante meu tempo na Aupi.",
-      en: "Web utilities platform consuming external APIs, built during my time at Aupi.",
+      pt: "Ferramenta interna para otimização de processos, criada durante meu tempo na Aupi Soluções.",
+      en: "Internal tool for process optimization, built during my time at Aupi Soluções.",
     },
     stack: ["Django", "JavaScript", "REST APIs"],
   },
@@ -60,8 +60,8 @@ export const projects: Project[] = [
     featured: true,
     kind: { pt: "CLI", en: "CLI" },
     description: {
-      pt: "Conversor de mídia local e seguro via linha de comando, sobre o FFmpeg. Conversão em lote, vários formatos e distribuição via Homebrew e Scoop.",
-      en: "Safe, local command-line media converter powered by FFmpeg. Batch conversion, many formats and distribution via Homebrew and Scoop.",
+      pt: "CLI open source em Go que orquestra o FFmpeg para converter arquivos de mídia. Nasceu de uma necessidade real no Linux (WebM para MP4) e cresceu para vários formatos, com validação dos resultados e contribuidores externos.",
+      en: "Open source Go CLI that orchestrates FFmpeg to convert media files. Born from a real need on Linux (WebM to MP4), it grew to many formats, with result validation and outside contributors.",
     },
     stack: ["Go", "FFmpeg", "GitHub Actions"],
     url: "https://amad3eu.github.io/mediaconv/",
@@ -74,8 +74,8 @@ export const projects: Project[] = [
     featured: true,
     kind: { pt: "API", en: "API" },
     description: {
-      pt: "API open source que extrai dados estruturados de extratos financeiros em PDF, com parsers para vários bancos brasileiros e normalização de datas e valores.",
-      en: "Open source API that extracts structured data from financial PDF statements, with parsers for several Brazilian banks and date/value normalization.",
+      pt: "API que extrai e estrutura documentos bancários em PDF, com parsers para Nubank, Itaú, Santander, C6, Banco do Brasil, Inter, Bradesco, BTG, Sicredi, Sicoob e Cora, além de normalização de datas e valores.",
+      en: "API that extracts and structures banking PDF documents, with parsers for Nubank, Itaú, Santander, C6, Banco do Brasil, Inter, Bradesco, BTG, Sicredi, Sicoob and Cora, plus date and value normalization.",
     },
     stack: ["Python", "Django REST Framework", "PDF parsing"],
   },

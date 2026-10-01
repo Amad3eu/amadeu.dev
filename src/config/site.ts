@@ -25,6 +25,15 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/amad3eu",
     devto: "https://dev.to/amad3eu",
   },
+  /**
+   * Currículo por idioma (arquivos em public/).
+   * Enquanto não houver versão em inglês, os dois apontam para o PT.
+   */
+  cv: {
+    pt: "/cv-pt.pdf",
+    en: "/cv-pt.pdf",
+    fileName: "CV_Luiz_Felipe_Amadeu.pdf",
+  },
   /** Card "Construindo agora" da home. */
   now: {
     name: "MediaConv",
