@@ -45,6 +45,7 @@ Conteúdo em Markdown/MDX.
 
 - Para a versão em inglês, crie `src/content/blog/en/meu-post.mdx` com o **mesmo nome de arquivo**. O site liga as duas versões sozinho.
 - Post publicado em outro site (DEV.to, LinkedIn)? Use `externalUrl` e `externalSite` no frontmatter e deixe o corpo vazio.
+- Trouxe para cá um texto que saiu primeiro em outro site? Use `originalUrl` e `originalSite`: o post ganha página própria e mostra o crédito com link.
 - Posts com `draft: true` aparecem só no `npm run dev`.
 
 ## Estrutura

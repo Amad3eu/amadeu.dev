@@ -50,8 +50,8 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <div class="container-page pt-12 sm:pt-16">
-    <div class="mx-auto grid max-w-5xl gap-12 xl:max-w-6xl xl:grid-cols-[minmax(0,1fr)_14rem]">
-      <article class="mx-auto w-full max-w-3xl">
+    <div class="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)] gap-12 xl:max-w-6xl xl:grid-cols-[minmax(0,1fr)_14rem]">
+      <article class="mx-auto w-full max-w-3xl min-w-0">
         <a href={path("blog", lang)} class="inline-flex items-center gap-2 font-mono text-xs text-subtle hover:text-fg">
           <Icon name="arrow-left" size={14} />
           {t("blog.back")}
@@ -72,6 +72,21 @@ const jsonLd = {
             post.data.updated && (
               <p class="mt-4 font-mono text-xs text-subtle">
                 {t("blog.updated")} {formatDate(post.data.updated, lang, "long")}
+              </p>
+            )
+          }
+          {
+            post.data.originalUrl && (
+              <p class="mt-4 font-mono text-xs text-subtle">
+                <a
+                  href={post.data.originalUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1 hover:text-fg"
+                >
+                  {t("blog.original", { site: post.data.originalSite ?? "web" })}
+                  <Icon name="arrow-up-right" size={12} />
+                </a>
               </p>
             )
           }
