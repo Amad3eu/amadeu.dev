@@ -72,6 +72,7 @@ const jsonLd = {
 
         <p class="mt-6 font-mono text-[0.8rem] leading-relaxed text-subtle">
           <span class="text-fg">{site.fullName}</span>
+          <span aria-hidden="true"> · </span>PHP
           <span aria-hidden="true"> · </span>Python/Django
           <span aria-hidden="true"> · </span>TypeScript/React
           <span aria-hidden="true"> · </span>{t("hero.meta.student")} @ Univille
@@ -87,7 +88,7 @@ const jsonLd = {
             <Icon name="book" />
             {t("hero.cta.blog")}
           </a>
-          <a href={`/cv-${lang}.pdf`} class="btn-ghost" download>
+          <a href={site.cv[lang]} class="btn-ghost" download={site.cv.fileName}>
             <Icon name="download" />
             {t("hero.cta.cv")}
           </a>

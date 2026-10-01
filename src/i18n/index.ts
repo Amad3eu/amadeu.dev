@@ -32,7 +32,7 @@ export const ui = {
   pt: {
     "meta.title": "Luiz Amadeu — Desenvolvedor Full Stack",
     "meta.description":
-      "Desenvolvedor full stack (Python/Django, TypeScript/React/Next.js). Sistemas web, APIs e integrações com regras de negócio de verdade.",
+      "Desenvolvedor full stack (PHP, Python/Django, TypeScript/React/Next.js). Sistemas web, APIs e integrações com regras de negócio de verdade.",
     "nav.home": "início",
     "nav.blog": "blog",
     "nav.projects": "projetos",
@@ -133,7 +133,7 @@ export const ui = {
   en: {
     "meta.title": "Luiz Amadeu — Full Stack Developer",
     "meta.description":
-      "Full stack developer (Python/Django, TypeScript/React/Next.js). Web systems, APIs and integrations built around real business rules.",
+      "Full stack developer (PHP, Python/Django, TypeScript/React/Next.js). Web systems, APIs and integrations built around real business rules.",
     "nav.home": "home",
     "nav.blog": "blog",
     "nav.projects": "projects",

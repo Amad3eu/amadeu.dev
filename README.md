@@ -24,7 +24,7 @@ Requer Node 22.12 ou mais novo.
 | Textos da interface (PT/EN)             | `src/i18n/index.ts`                   |
 | Cores, fontes e tema claro/escuro       | `src/styles/global.css` (`:root`)     |
 | Foto                                    | `src/assets/me.jpg`                   |
-| Currículos                              | `public/cv-pt.pdf`, `public/cv-en.pdf` |
+| Currículo                               | `public/cv-pt.pdf` (links em `site.cv`) |
 
 ## Escrevendo um post
 
