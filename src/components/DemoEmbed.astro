@@ -1,46 +1,40 @@
 ---
 /**
- * Vandal Game embutido. Mostra só uma capa; o iframe (e o som do jogo)
+ * Demo embutida por iframe. Mostra só uma capa; o iframe (e qualquer som)
  * carrega depois do clique, para não pesar nem tocar nada sozinho.
  */
 import { Image } from "astro:assets";
-import poster from "../assets/lab/vandal-game.png";
 import Icon from "./Icon.astro";
-import { game } from "../data/lab";
+import type { Demo } from "../data/lab";
 import { useTranslations, type Lang } from "../i18n";
 
 interface Props {
   lang: Lang;
+  demo: Demo;
 }
 
-const { lang } = Astro.props;
+const { lang, demo } = Astro.props;
 const t = useTranslations(lang);
 ---
 
 <div class="card overflow-hidden">
-  <div class="relative aspect-[4/3] sm:aspect-video" data-game data-src={game.url} data-title={t("lab.game.frame")}>
-    <Image
-      src={poster}
-      alt=""
-      width={1280}
-      class="h-full w-full object-cover"
-      loading="lazy"
-    />
+  <div class="relative aspect-[4/3] sm:aspect-video" data-demo data-src={demo.url} data-title={demo.title}>
+    <Image src={demo.poster} alt="" width={1280} class="h-full w-full object-cover" loading="lazy" />
     <div class="absolute inset-0 grid place-items-center bg-bg/50">
-      <button type="button" class="btn-primary px-6 py-3 text-base shadow-lg" data-game-play>
+      <button type="button" class="btn-primary px-6 py-3 text-base shadow-lg" data-demo-play>
         <span aria-hidden="true">▶</span>
-        {t("lab.game.play")}
+        {t(demo.action === "play" ? "lab.demo.play" : "lab.demo.run")}
       </button>
     </div>
   </div>
   <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border p-4">
-    <p class="text-sm text-muted">{t("lab.game.note")}</p>
+    <p class="text-sm text-muted">{t(demo.sound ? "lab.demo.noteSound" : "lab.demo.note")}</p>
     <div class="flex gap-4 font-mono text-xs">
-      <a href={game.url} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+      <a href={demo.url} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
         <Icon name="arrow-up-right" size={14} />
-        {t("lab.game.open")}
+        {t("lab.demo.open")}
       </a>
-      <a href={game.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
+      <a href={demo.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted hover:text-fg">
         <Icon name="github" size={14} />
         {t("projects.code")}
       </a>
@@ -49,8 +43,8 @@ const t = useTranslations(lang);
 </div>
 
 <script>
-  for (const slot of document.querySelectorAll<HTMLElement>("[data-game]")) {
-    slot.querySelector("[data-game-play]")?.addEventListener("click", () => {
+  for (const slot of document.querySelectorAll<HTMLElement>("[data-demo]")) {
+    slot.querySelector("[data-demo-play]")?.addEventListener("click", () => {
       const frame = document.createElement("iframe");
       frame.src = slot.dataset.src!;
       frame.title = slot.dataset.title!;

@@ -21,6 +21,8 @@ Requer Node 22.12 ou mais novo.
 | Nome, e-mail, redes, "construindo agora" | `src/config/site.ts`                  |
 | Bio, experiência, formação, skills      | `src/data/profile.ts`                 |
 | Projetos (e quais aparecem na home)     | `src/data/projects.ts`                |
+| Demos do lab                            | `src/data/lab.ts`                     |
+| Página de setup (sistema, terminal, editor) | `src/data/setup.ts`               |
 | Textos da interface (PT/EN)             | `src/i18n/index.ts`                   |
 | Cores, fontes e tema claro/escuro       | `src/styles/global.css` (`:root`)     |
 | Foto                                    | `src/assets/me.jpg`                   |

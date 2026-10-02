@@ -1,0 +1,85 @@
+---
+import { Code } from "astro:components";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../config/site";
+import { otherGists, sections } from "../data/setup";
+import { formatDate, l, otherLang, path, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const date = (iso: string) => formatDate(new Date(`${iso}T00:00:00Z`), lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t("setup.title")}
+  description={t("setup.description")}
+  active="setup"
+  alternate={path("setup", otherLang(lang))}
+>
+  <div class="container-page pt-14 sm:pt-20">
+    <header class="mb-16 max-w-2xl">
+      <p class="eyebrow">/{t("nav.setup")}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{t("setup.title")}</h1>
+      <p class="mt-4 leading-relaxed text-muted">{t("setup.description")}</p>
+    </header>
+
+    {
+      sections.map((section) => (
+        <section id={section.id} class="mb-20 scroll-mt-24">
+          <SectionHeading title={l(lang, section.title)} hint={`${section.gist.file} · ${date(section.gist.updated)}`} />
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-12">
+            <div>
+              <p class="leading-relaxed text-pretty text-muted">{l(lang, section.text)}</p>
+              <dl class="mt-6 divide-y divide-border border-y border-border">
+                {section.items.map((item) => (
+                  <div class="grid gap-1 py-3 sm:grid-cols-[9rem_1fr] sm:gap-4">
+                    <dt class="font-mono text-xs text-subtle sm:pt-0.5">{l(lang, item.label)}</dt>
+                    <dd class="text-sm">{item.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <a href={section.gist.url} target="_blank" rel="noopener" class="link-arrow mt-6 text-sm">
+                <Icon name="github" size={14} />
+                {t("setup.gist")}
+                <Icon name="arrow-up-right" size={14} />
+              </a>
+            </div>
+            <Code
+              code={section.snippet.code}
+              lang={section.snippet.lang}
+              themes={{ light: "github-light", dark: "github-dark-dimmed" }}
+              defaultColor={false}
+              class="h-fit overflow-x-auto rounded-xl border border-border p-5 text-[0.8rem] leading-relaxed"
+            />
+          </div>
+        </section>
+      ))
+    }
+
+    <section>
+      <SectionHeading title={t("setup.more")} hint={t("setup.more.hint")} href={`https://gist.github.com/${site.github.user}`} />
+      <ul class="divide-y divide-border">
+        {
+          otherGists.map((item) => (
+            <li class="group relative grid gap-1 py-4 sm:grid-cols-[9rem_16rem_1fr] sm:items-baseline sm:gap-6">
+              <span class="font-mono text-xs whitespace-nowrap text-subtle">{date(item.date)}</span>
+              <span class="font-mono text-sm">
+                <a href={item.url} target="_blank" rel="noopener" class="after:absolute after:inset-0 group-hover:text-accent">
+                  {item.file}
+                </a>
+              </span>
+              <span class="text-sm text-muted">{l(lang, item.text)}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
