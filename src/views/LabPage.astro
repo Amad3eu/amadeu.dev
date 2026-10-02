@@ -2,9 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import DoomFire from "../components/DoomFire.astro";
-import GameEmbed from "../components/GameEmbed.astro";
+import DemoEmbed from "../components/DemoEmbed.astro";
 import Icon from "../components/Icon.astro";
-import { fire, game } from "../data/lab";
+import { demos, fire, game } from "../data/lab";
 import { l, otherLang, path, useTranslations, type Lang } from "../i18n";
 
 interface Props {
@@ -60,24 +60,26 @@ const t = useTranslations(lang);
       </div>
     </section>
 
-    <section>
-      <SectionHeading title={game.title} hint={game.meta} />
-      <div class="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-12">
-        <GameEmbed lang={lang} />
-        <div>
-          <p class="leading-relaxed text-pretty text-muted">{l(lang, game.text)}</p>
-          <h3 class="label mt-8 mb-4">{t("lab.controls")}</h3>
-          <ul class="space-y-2 text-muted">
-            {
-              l(lang, game.controls).map((item) => (
-                <li class="relative pl-5 leading-relaxed before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2.5 before:bg-border-strong">
-                  {item}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
-    </section>
+    {
+      [game, ...demos].map((demo) => (
+        <section class="mb-24 last:mb-0">
+          <SectionHeading title={demo.title} hint={demo.meta} />
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-12">
+            <DemoEmbed lang={lang} demo={demo} />
+            <div>
+              <p class="leading-relaxed text-pretty text-muted">{l(lang, demo.text)}</p>
+              <h3 class="label mt-8 mb-4">{t(demo.action === "play" ? "lab.controls" : "lab.howToUse")}</h3>
+              <ul class="space-y-2 text-muted">
+                {l(lang, demo.tips).map((item) => (
+                  <li class="relative pl-5 leading-relaxed before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2.5 before:bg-border-strong">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      ))
+    }
   </div>
 </BaseLayout>

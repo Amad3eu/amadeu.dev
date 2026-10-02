@@ -21,6 +21,7 @@ const links: { key: RouteKey; label: string }[] = [
   { key: "projects", label: t("nav.projects") },
   { key: "about", label: t("nav.about") },
   { key: "lab", label: t("nav.lab") },
+  { key: "setup", label: t("nav.setup") },
 ];
 ---
 
@@ -61,12 +62,12 @@ const links: { key: RouteKey; label: string }[] = [
     </div>
 
     <nav class="order-3 -mx-2 w-full overflow-x-auto sm:order-2 sm:mx-0 sm:ml-auto sm:w-auto" aria-label={lang === "pt" ? "Principal" : "Main"}>
-      <ul class="flex items-center gap-1 font-mono text-[0.8rem]">
+      <ul class="flex flex-wrap items-center gap-x-1 font-mono text-[0.8rem]">
         {
           links.map(({ key, label }) => {
             const isActive = key === active;
             return (
-              <li>
+              <li class:list={[key === "home" && "hidden sm:block"]}>
                 <a
                   href={path(key, lang)}
                   aria-current={isActive ? "page" : undefined}

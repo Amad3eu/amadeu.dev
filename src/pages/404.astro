@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
-import GameEmbed from "../components/GameEmbed.astro";
+import DemoEmbed from "../components/DemoEmbed.astro";
+import { game } from "../data/lab";
 import { path, useTranslations } from "../i18n";
 
 const t = useTranslations("pt");
@@ -21,7 +22,7 @@ const en = useTranslations("en");
 
     <section class="mt-16">
       <p class="label mb-4">{t("404.game")}</p>
-      <GameEmbed lang="pt" />
+      <DemoEmbed lang="pt" demo={game} />
     </section>
   </div>
 </BaseLayout>
